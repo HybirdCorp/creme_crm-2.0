@@ -60,11 +60,24 @@ creme.relations.AddRelationToAction = creme.component.Action.sub({
                                                          ])
                                                         .action();
 
+            /* TODO : Refactor with this code in 2.1 when Action.after()
+             * behaviour will be fixed.
             deps.after(query).on('cancel done', function() {
                 self.done();
             }).onFail(function() {
                 self.fail();
             });
+            */
+
+            query.onDone(function() {
+                     deps.on('cancel done', function() {
+                         self.done();
+                     }).onFail(function() {
+                         self.fail();
+                     }).start();
+                 }).onFail(function() {
+                     self.fail();
+                 });
         }
 
         return query;
