@@ -1,5 +1,5 @@
 # FR LOCALISATION OF 'PRODUCTS' APP
-# Copyright (C) 2018 Hybird
+# Copyright (C) 2019 Hybird
 # This file is distributed under the same license as the Creme package.
 #
 # > django-admin.py makemessages -l fr -i "tests/*"
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Creme Products 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 18:06+0100\n"
+"POT-Creation-Date: 2019-02-11 17:52+0100\n"
 "Last-Translator: Hybird <contact@hybird.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -260,8 +260,8 @@ msgid "Android"
 msgstr "Android"
 
 #: populate.py:88
-msgid "Informatic"
-msgstr "Informatique"
+msgid "Electronics"
+msgstr "Materiel informatique"
 
 #: populate.py:89
 msgid "Laptops"
@@ -336,7 +336,7 @@ msgid "Teens"
 msgstr "Adolescents"
 
 #: populate.py:110 populate.py:116
-msgid "Baybies"
+msgid "Babies"
 msgstr "Bébés"
 
 #: populate.py:112

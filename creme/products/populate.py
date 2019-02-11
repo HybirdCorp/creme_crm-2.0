@@ -2,7 +2,7 @@
 
 ################################################################################
 #    Creme is a free/open-source Customer Relationship Management software
-#    Copyright (C) 2009-2018  Hybird
+#    Copyright (C) 2009-2019  Hybird
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -85,11 +85,11 @@ class Populator(BasePopulator):
             create_subcat(name=_(u'Samsung'),    category=mobile)
             create_subcat(name=_(u'Android'),    category=mobile)
 
-            informatic = create_cat(name=_(u'Informatic'))
-            create_subcat(name=_(u'Laptops'),  category=informatic)
-            create_subcat(name=_(u'Desktops'), category=informatic)
-            create_subcat(name=_(u'Tablet'),   category=informatic)
-            create_subcat(name=_(u'Notebook'), category=informatic)
+            electronics = create_cat(name=_('Electronics'))
+            create_subcat(name=_('Laptops'),  category=electronics)
+            create_subcat(name=_('Desktops'), category=electronics)
+            create_subcat(name=_('Tablet'),   category=electronics)
+            create_subcat(name=_('Notebook'), category=electronics)
 
             travels = create_cat(name=_(u'Travels'))
             create_subcat(name=_(u'Fly'),      category=travels)
@@ -104,16 +104,16 @@ class Populator(BasePopulator):
             create_subcat(name=_(u'Plane'), category=vehicle)
 
             games_toys = create_cat(name=_(u'Games & Toys'))
-            create_subcat(name=_(u'Boys'),    category=games_toys)
-            create_subcat(name=_(u'Girls'),   category=games_toys)
-            create_subcat(name=_(u'Teens'),   category=games_toys)
-            create_subcat(name=_(u'Baybies'), category=games_toys)
+            create_subcat(name=_(u'Boys'),   category=games_toys)
+            create_subcat(name=_(u'Girls'),  category=games_toys)
+            create_subcat(name=_(u'Teens'),  category=games_toys)
+            create_subcat(name=_(u'Babies'), category=games_toys)
 
             clothes = create_cat(name=_(u'Clothes'))
-            create_subcat(name=_(u'Men'),     category=clothes)
-            create_subcat(name=_(u'Women'),   category=clothes)
-            create_subcat(name=_(u'Kids'),    category=clothes)
-            create_subcat(name=_(u'Baybies'), category=clothes)
+            create_subcat(name=_(u'Men'),    category=clothes)
+            create_subcat(name=_(u'Women'),  category=clothes)
+            create_subcat(name=_(u'Kids'),   category=clothes)
+            create_subcat(name=_(u'Babies'), category=clothes)
 
         # ---------------------------
         if not BrickDetailviewLocation.config_exists(Product):  # NB: no straightforward way to test that this populate script has not been already run
