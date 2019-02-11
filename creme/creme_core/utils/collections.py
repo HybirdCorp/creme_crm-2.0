@@ -2,7 +2,7 @@
 
 ################################################################################
 #
-# Copyright (c) 2009-2018 Hybird
+# Copyright (c) 2009-2019 Hybird
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 
 # from __future__ import absolute_import  # For standard 'collections' module
 
-import collections
+from collections.abc import MutableSet
 from sys import maxsize
 
 
@@ -246,7 +246,7 @@ class InheritedDataChain:
 
 # Found at http://code.activestate.com/recipes/576694/
 
-class OrderedSet(collections.MutableSet):
+class OrderedSet(MutableSet):
     """Set that remembers original insertion order.
     Implementation based on a doubly linked link and an internal dictionary.
     This design gives OrderedSet the same big-Oh running times as regular sets
