@@ -1,3 +1,24 @@
+== Version 2.0.1 ==
+
+  UPGRADE NOTE :
+    - You should re-generate the media files (python manage.py generatemedia).
+    - You should upgrade the minor version of Django 1.11 (1.11.20 or more) (eg: pip install -U django==1.11.20).
+
+  Users side :
+  ------------
+    # A reloading issue in some blocks (like "Future activities") has been fixed.
+    # A crash caused by encoding in the command "generatemedia" was fixed.
+    # Some typo were fixed.
+    # Apps:
+        * Events :
+            - The lists of contacts related to an event was buggy :
+                - it contained contacts related to any events.
+                - the change of status was broken.
+        * Opportunities :
+            - An issue of the card brick has been fixed : it was not reloaded when a linked contact is added.
+
+
+
 == Version 2.0 ==
 
   UPGRADE NOTE :
