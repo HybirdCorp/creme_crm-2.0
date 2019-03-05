@@ -2,7 +2,7 @@
 
 ################################################################################
 #
-# Copyright (c) 2016-2018 Hybird
+# Copyright (c) 2016-2019 Hybird
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@
 # SOFTWARE.
 ################################################################################
 
-from __future__ import print_function
+# from __future__ import print_function
 
 # from django.conf import settings
 from django.db import DEFAULT_DB_ALIAS, connections
