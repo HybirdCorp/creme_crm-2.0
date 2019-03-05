@@ -2,7 +2,7 @@
 
 ################################################################################
 #    Creme is a free/open-source Customer Relationship Management software
-#    Copyright (C) 2009-2018  Hybird
+#    Copyright (C) 2009-2019  Hybird
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -152,6 +152,7 @@ def _get_available_report_graph_types(ct, name):
 
 
 # TODO: can be factorised with ReportGraphForm (use ReportGraphHand)
+@login_required
 @jsonify
 # @permission_required('reports') ??
 def get_available_report_graph_types(request, ct_id):
@@ -178,6 +179,7 @@ def cast_order(order):
     return order
 
 
+@login_required
 @jsonify
 # @permission_required('reports') ??
 # def fetch_graph(request, graph_id, order=None):
@@ -197,6 +199,7 @@ def fetch_graph_from_instanceblock(request, instance_block_id, entity_id):
     return fetch_graph_from_instancebrick(request, instance_brick_id=instance_block_id, entity_id=entity_id)
 
 
+@login_required
 @jsonify
 # @permission_required('reports') ??
 def fetch_graph_from_instancebrick(request, instance_brick_id, entity_id):
