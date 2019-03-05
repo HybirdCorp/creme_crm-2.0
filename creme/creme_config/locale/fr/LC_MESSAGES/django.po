@@ -1,5 +1,5 @@
 # FR LOCALISATION OF 'CREME_CONFIG' APP
-# Copyright (C) 2018 Hybird
+# Copyright (C) 2019 Hybird
 # This file is distributed under the same license as the Creme package.
 #
 # > django-admin.py makemessages -l fr -i "tests/*"
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Creme Creme-Config 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 15:29+0100\n"
+"POT-Creation-Date: 2019-03-04 18:37+0100\n"
 "Last-Translator: Hybird <contact@hybird.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -114,10 +114,10 @@ msgstr "Rôle"
 #: templates/creme_config/button_menu_portal.html:8
 #: templates/creme_config/custom_fields_portal.html:8
 #: templates/creme_config/fields_config_portal.html:8
-#: templates/creme_config/generics/app_portal.html:4
-#: templates/creme_config/generics/app_portal.html:8
-#: templates/creme_config/generics/model_portal.html:4
-#: templates/creme_config/generics/model_portal.html:8
+#: templates/creme_config/generics/app-portal.html:4
+#: templates/creme_config/generics/app-portal.html:8
+#: templates/creme_config/generics/model-portal.html:4
+#: templates/creme_config/generics/model-portal.html:8
 #: templates/creme_config/history_portal.html:8
 #: templates/creme_config/portal.html:5 templates/creme_config/portal.html:19
 #: templates/creme_config/property_type_portal.html:8
@@ -286,12 +286,16 @@ msgid "Type constraint"
 msgstr "Contrainte sur le type"
 
 #: forms/relation_type.py:35
-msgid "No constraint means that all types are accepted"
-msgstr "Aucune contrainte signifiera que tous les types sont acceptés"
+msgid "No constraint means that all types are accepted."
+msgstr "Aucune contrainte signifiera que tous les types sont acceptés."
 
 #: forms/relation_type.py:38
 msgid "Properties constraint"
 msgstr "Contrainte sur les propriétés"
+
+#: forms/relation_type.py:45
+msgid "The subject must have all the selected properties."
+msgstr "Le sujet doit avoir toutes les propriétés sélectionnées."
 
 #: forms/relation_type.py:47
 msgid "Subject => object"
@@ -343,6 +347,10 @@ msgid ""
 msgstr ""
 "Ne pas afficher dans le bloc «Relations» (vue détaillée de l'objet) quand "
 "c'est déjà affiché par un autre bloc"
+
+#: forms/relation_type.py:72
+msgid "The object must have all the selected properties."
+msgstr "L'objet doit avoir toutes les propriétés sélectionnées."
 
 #: forms/relation_type.py:74
 msgid "Subject"
@@ -1313,11 +1321,11 @@ msgstr "Champs personnalisés"
 msgid "Configuration of fields"
 msgstr "Configuration des champs"
 
-#: templates/creme_config/generics/app_portal.html:8
+#: templates/creme_config/generics/app-portal.html:8
 msgid "Application"
 msgstr "Application"
 
-#: templates/creme_config/generics/model_portal.html:10
+#: templates/creme_config/generics/model-portal.html:10
 #, python-format
 msgid "Type : %(model_name)s"
 msgstr "Type : %(model_name)s"
@@ -1538,16 +1546,16 @@ msgid "New custom field for «{model}»"
 msgstr "Nouveau champ personnalisé pour «{model}»"
 
 # Already in creme_core
-#: views/generics_views.py:97
+#: views/generics_views.py:112
 msgid "Save"
 msgstr ""
 
-#: views/generics_views.py:107
+#: views/generics_views.py:122
 #, python-brace-format
 msgid "New value: {model}"
 msgstr "Nouvelle valeur : {model}"
 
-#: views/generics_views.py:196
+#: views/generics_views.py:268
 msgid "{} can not be deleted because of its dependencies."
 msgstr "{} ne peut pas être effacé à cause de ses dépendances."
 
@@ -1566,7 +1574,7 @@ msgstr "Modifier le type «{object}»"
 msgid "New search configuration for «{model}»"
 msgstr "Nouvelle configuration de recherche pour «{model}»"
 
-#: views/setting.py:67 views/user_settings.py:125
+#: views/setting.py:67 views/user_settings.py:136
 #, python-brace-format
 msgid "Edit «{key}»"
 msgstr "Modifier «{key}»"
