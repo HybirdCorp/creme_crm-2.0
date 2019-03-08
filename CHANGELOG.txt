@@ -1,3 +1,30 @@
+== Version 2.0.2 ==
+
+  Users side :
+  ------------
+    # The display of money amount (with currency) was broken under some Windows versions.
+    # Several forms did not respect the constraints of RelationTypes.
+      It was allowed to create relationships which did not respect ContentType & Properties constraint in a relationship-block.
+      The properties constraints were badly checked in general ("allowed" meaning instead of "mandatory" one).
+    # Apps:
+        * Creme_config :
+            - The buttons to delete detail-view bricks configurations were broken.
+            - A relationship-brick is not proposed in the bricks configuration anymore when the RelationType is not compatible with the configured entity type.
+        * Reports :
+            - Three views in graphs did not explicitly required to be logged (no security issue anyway).
+        * Projects :
+            - A transaction has been added for the deletion of an activity related to a task.
+        * Persons :
+            - A minor reloading issue has been fixed in the "Card" brick for Contacts.
+
+  Developers side :
+  -----------------
+    Non breaking changes :
+    ----------------------
+        # An issue with 'creme_core.utils.profiling.QueriesPrinter' has been fixed.
+          When a same instance was used several times, if the underlying connection changed, no new query was detected.
+
+
 == Version 2.0.1 ==
 
   UPGRADE NOTE :
@@ -16,7 +43,6 @@
                 - the change of status was broken.
         * Opportunities :
             - An issue of the card brick has been fixed : it was not reloaded when a linked contact is added.
-
 
 
 == Version 2.0 ==
