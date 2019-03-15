@@ -82,6 +82,8 @@ QUnit.module("creme.dialog-form.js", new QUnitMixin(QUnitEventMixin,
                 var responseType = data.responseType[0];
                 if (responseType === 'pre') {
                     return backend.response(200, MOCK_FRAME_CONTENT_SUBMIT_JSON_PRE);
+                } else if (responseType === 'empty-pre') {
+                    return backend.response(200, '<pre></pre>');
                 } else if (responseType === 'notag') {
                     return backend.response(200, MOCK_FRAME_CONTENT_SUBMIT_JSON_NOTAG, {'content-type': 'text/json'});
                 } else if (responseType === 'invalid') {
@@ -751,6 +753,27 @@ QUnit.test('creme.dialog.FormDialog (<pre>JSON</pre> response)', function(assert
 
     deepEqual([
         ['form-success', $.toJSON({value: 2, added: [5, 'John Pre']}), 'ok', 'text/json']
+    ], this.mockListenerCalls('form-success'));
+});
+
+QUnit.test('creme.dialog.FormDialog (<pre></pre> response)', function(assert) {
+    var dialog = new creme.dialog.FormDialog({url: 'mock/submit/json', backend: this.backend});
+
+    dialog.onFormSuccess(this.mockListener('form-success'));
+    dialog.open();
+
+    dialog.form().find('[name="responseType"]').val('empty-pre');
+    dialog.submit();
+
+    deepEqual([
+        ['GET', {}],
+        ['POST', {
+            responseType: ['empty-pre']
+        }]
+    ], this.mockBackendUrlCalls('mock/submit/json'));
+
+    deepEqual([
+        ['form-success', '', 'ok', 'text/plain']
     ], this.mockListenerCalls('form-success'));
 });
 

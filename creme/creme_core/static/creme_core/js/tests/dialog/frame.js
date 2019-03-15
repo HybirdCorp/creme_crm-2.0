@@ -49,6 +49,40 @@ QUnit.test('creme.dialog.FrameContentData (empty)', function(assert) {
     equal('text/plain', data.type);
 });
 
+QUnit.test('creme.dialog.FrameContentData (<pre></pre>)', function(assert) {
+    var data = new creme.dialog.FrameContentData('<pre></pre>');
+    equal('', data.content);
+    equal('text/plain', data.type);
+
+    data = new creme.dialog.FrameContentData('<pre>sample</pre>');
+    equal('sample', data.content);
+    equal('text/plain', data.type);
+
+    data = new creme.dialog.FrameContentData('<pre></pre>', 'text/html');
+    equal('', data.content);
+    equal('text/plain', data.type);
+
+    data = new creme.dialog.FrameContentData('<pre>sample</pre>', 'text/html');
+    equal('sample', data.content);
+    equal('text/plain', data.type);
+
+    data = new creme.dialog.FrameContentData('<pre></pre>', 'text/json');
+    equal('', data.content);
+    equal('text/plain', data.type);
+
+    data = new creme.dialog.FrameContentData('<pre>sample</pre>', 'text/json');
+    equal('sample', data.content);
+    equal('text/plain', data.type);
+
+    data = new creme.dialog.FrameContentData('<pre></pre>', 'text/plain');
+    equal('<pre></pre>', data.content);
+    equal('text/plain', data.type);
+
+    data = new creme.dialog.FrameContentData('<pre>sample</pre>', 'text/plain');
+    equal('<pre>sample</pre>', data.content);
+    equal('text/plain', data.type);
+});
+
 QUnit.test('creme.dialog.FrameContentData (json, text/plain)', function(assert) {
     var data = new creme.dialog.FrameContentData('{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}', 'text/plain');
     equal('{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}', data.content);
@@ -71,11 +105,12 @@ QUnit.test('creme.dialog.FrameContentData (json, text/json)', function(assert) {
     equal('<json>{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}</json>', data.content);
     equal('<json>{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}</json>', data.data());
     equal('text/plain', data.type);
+    console.log(data);
 
     data = new creme.dialog.FrameContentData('<pre>{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}</pre>', 'text/json');
-    equal('<pre>{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}</pre>', data.content);
-    equal('<pre>{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}</pre>', data.data());
-    equal('text/plain', data.type);
+    equal('{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}', data.content);
+    deepEqual({"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}, data.data());
+    equal('text/json', data.type);
 
     data = new creme.dialog.FrameContentData('{"a": 12, "b": [1,', 'text/json');
     equal('{"a": 12, "b": [1,', data.content);
@@ -88,8 +123,8 @@ QUnit.test('creme.dialog.FrameContentData (json, text/json)', function(assert) {
     equal('text/plain', data.type);
 
     data = new creme.dialog.FrameContentData('<pre>{"a": 12, "b": [1,</pre>', 'text/json');
-    equal('<pre>{"a": 12, "b": [1,</pre>', data.content);
-    equal('<pre>{"a": 12, "b": [1,</pre>', data.data());
+    equal('{"a": 12, "b": [1,', data.content);
+    equal('{"a": 12, "b": [1,', data.data());
     equal('text/plain', data.type);
 });
 
@@ -105,9 +140,9 @@ QUnit.test('creme.dialog.FrameContentData (json, application/json)', function(as
     equal('text/plain', data.type);
 
     data = new creme.dialog.FrameContentData('<pre>{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}</pre>', 'application/json');
-    equal('<pre>{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}</pre>', data.content);
-    equal('<pre>{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}</pre>', data.data());
-    equal('text/plain', data.type);
+    equal('{"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}', data.content);
+    deepEqual({"a": 12, "b": [1, 2], "c": {"c1": 74, "c2": [8]}}, data.data());
+    equal('text/json', data.type);
 
     data = new creme.dialog.FrameContentData('{"a": 12, "b": [1,', 'application/json');
     equal('{"a": 12, "b": [1,', data.content);
