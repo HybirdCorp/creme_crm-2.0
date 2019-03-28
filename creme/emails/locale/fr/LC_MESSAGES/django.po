@@ -1,5 +1,5 @@
 # FR LOCALISATION OF 'EMAILS' APP
-# Copyright (C) 2018 Hybird
+# Copyright (C) 2019 Hybird
 # This file is distributed under the same license as the Creme package.
 #
 # > django-admin.py makemessages -l fr -i "tests/*"
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Creme Emails 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 16:40+0100\n"
+"POT-Creation-Date: 2019-03-28 18:32+0100\n"
 "Last-Translator: Hybird <contact@hybird.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -388,7 +388,7 @@ msgstr "Créer un e-mail"
 msgid "Save the email"
 msgstr "Enregister l'e-mail"
 
-#: models/mail.py:92 views/mail.py:244
+#: models/mail.py:92 views/mail.py:246
 msgid "Send the email"
 msgstr "Envoyer l'e-mail"
 
@@ -688,7 +688,7 @@ msgstr "Reçu le"
 
 #: templates/emails/bricks/base/synchronization.html:22
 #: templates/emails/bricks/lw-mails-history.html:14
-#: templates/emails/bricks/mails-history.html:31
+#: templates/emails/bricks/mails-history.html:30
 #: templates/emails/bricks/sendings.html:20
 #: templates/emails/bricks/signatures.html:20
 msgid "Actions"
@@ -816,7 +816,7 @@ msgid "{count} Campaigns emails in the history"
 msgstr "{count} E-mails de campagne dans l'historique"
 
 #: templates/emails/bricks/lw-mails-history.html:24
-#: templates/emails/bricks/mails-history.html:43
+#: templates/emails/bricks/mails-history.html:42
 #: templates/emails/bricks/sendings.html:32
 msgid "Details"
 msgstr "Détails"
@@ -841,13 +841,13 @@ msgstr "Aucun e-mail dans cet envoi"
 
 #: templates/emails/bricks/mail-hat-bar.html:8
 #: templates/emails/bricks/mail-hat-bar.html:10
-#: templates/emails/bricks/mails-history.html:48
-#: templates/emails/bricks/mails-history.html:50
+#: templates/emails/bricks/mails-history.html:47
+#: templates/emails/bricks/mails-history.html:49
 msgid "Re-send"
 msgstr "Ré-envoyer"
 
 #: templates/emails/bricks/mail-hat-bar.html:8
-#: templates/emails/bricks/mails-history.html:48
+#: templates/emails/bricks/mails-history.html:47
 msgid "This mail was synchronized. Are you sure you want to send it ?"
 msgstr "Cet e-mail a été synchronisé. Êtes-vous sûr de vouloir l'envoyer ?"
 
@@ -891,11 +891,11 @@ msgstr "Envoyer un nouvel e-mail lié"
 msgid "Send a email (with a template)"
 msgstr "Envoyer un e-mail (avec un patron)"
 
-#: templates/emails/bricks/mails-history.html:21
-msgid "Link to an existing email"
-msgstr "Lier à un e-mail existant"
+#: templates/emails/bricks/mails-history.html:20
+msgid "Link to emails"
+msgstr "Lier à des e-mails"
 
-#: templates/emails/bricks/mails-history.html:59
+#: templates/emails/bricks/mails-history.html:58
 msgid "No email in the history for the moment"
 msgstr "Aucun e-mail dans l'historique pour le moment"
 
@@ -1150,32 +1150,41 @@ msgstr "Lier les listes de diffusion"
 msgid "Operation successfully completed"
 msgstr "Opération effectuée avec succès"
 
-#: views/mail.py:106
+#: views/mail.py:108
 #, python-format
 msgid "Sending an email to «%s»"
 msgstr "Envoi d'un e-mail à «%s»"
 
-#: views/mail.py:134
+#: views/mail.py:136
 msgid "Next step"
 msgstr "Étape suivante"
 
-#: views/mail.py:168
+#: views/mail.py:170
 #, python-brace-format
 msgid "Sending an email to «{entity}» (step {step}/2)"
 msgstr "Envoi d'un e-mail à «{entity}» (étape {step}/2)"
 
-#: views/mail.py:235
+#: views/mail.py:237
 #, python-brace-format
 msgid "Sending an email to «{entity}»"
 msgstr "Envoi d'un e-mail à «{entity}»"
 
-#: views/mail.py:268
+#: views/mail.py:270
 msgid "Sending an email to «{}»"
 msgstr "Envoi d'un e-mail à «{}»"
 
-#: views/mail.py:312 views/mail.py:325
+#: views/mail.py:314 views/mail.py:362
 msgid "Details of the email"
 msgstr "Détails de l'e-mail"
+
+#: views/mail.py:323
+#, python-brace-format
+msgid "Link «{entity}» to emails"
+msgstr "Lier «{entity}» à des e-mails"
+
+#: views/mail.py:352
+msgid "No type of relationship is compatible."
+msgstr "Aucun type de relation n'est compatible"
 
 #: views/mailing_list.py:222
 #, python-brace-format
@@ -1230,6 +1239,9 @@ msgstr "Nouveaux fichiers joints pour «{entity}»"
 #: views/template.py:150
 msgid "Add the attachments"
 msgstr "Ajouter les fichiers joints"
+
+#~ msgid "Link to an existing email"
+#~ msgstr "Lier à un e-mail existant"
 
 #~ msgid "forbidden"
 #~ msgstr "interdit"

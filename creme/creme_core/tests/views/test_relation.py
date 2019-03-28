@@ -112,6 +112,7 @@ class RelationViewsTestCase(ViewsTestCase):
                                            ('test-object_foobar2',  'is hated by')
                                           )[0]
 
+    # TODO: use assertRelationCount instead ?
     def assertEntiTyHasRelation(self, subject_entity, rtype, object_entity):
         self.assertTrue(subject_entity.relations
                                       .filter(type=rtype, object_entity=object_entity.id)

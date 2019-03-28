@@ -63,6 +63,8 @@ urlpatterns = [
     url(r'^mails_history/(?P<mail_id>\w+)[/]?$', mail.LightWeightEmailPopup.as_view(), name='emails__view_lw_mail'),
     url(r'^mail/get_body/(?P<mail_id>\w+)[/]?$', mail.get_lightweight_mail_body,       name='emails__lw_mail_body'),
     url(r'^mail/resend[/]?$',                    mail.resend_mails,                    name='emails__resend_emails'),
+    url(r'^mail/link/(?P<subject_id>\w+)[/]?$',  mail.EntityEmailLinking.as_view(),    name='emails__link_emails'),
+
 
     # Signature
     url(r'^signature/', include([
