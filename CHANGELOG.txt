@@ -1,3 +1,39 @@
+== Version 2.0.3 ==
+
+  UPGRADE NOTE :
+    - You should re-generate the media files (python manage.py generatemedia).
+
+  Users side :
+  ------------
+    # A bug appeared when using FormDialog and submit response is wrapped with '<pre>' tag by the browser (at least firefox).
+      It was annoying when adding a related Document for example.
+    # The style of the titles in wizard popup dialogs has been improved.
+    # Apps:
+        * Creme_config :
+            - The edition form steps for creatable & exportable content types of roles did not work correctly.
+              The form fields were not initialized with content types of the edited role.
+            - A confusing help text in the configuration of buttons has been removed.
+        * Emails :
+            - The popup to link existing e-mails from the history brick did not work any more.
+              It used the bulk relation adding ; this one changed its behaviour with GET/POST (which explains the error).
+              A new view is used instead, with a better GUI (better popup-up title, one useless field removed...).
+            - In the synchronization & spam blocks ;
+                - The buttons to link, delete & mark as spam were broken.
+                - Emails in the trash are ignored.
+
+  Developers side :
+  -----------------
+    Breaking changes :
+    ------------------
+        # 'In 'creme_core.forms.fields.CTypeChoiceField' & 'MultiCTypeChoiceField', the methods 'prepare_value()' now return
+           ContentType IDs when ContentType instances are provided ; it probably doesn't break anything, or just reveals buggy code.
+        # Apps :
+            * Emails :
+                - In JavaScript :
+                    - 'emailsync-*' row actions now use an optional argument "id" (ID of the row -- "__id" in brick templatetags).
+                    - 'emailsync-*' removes the "selector" argument.
+
+
 == Version 2.0.2 ==
 
   Users side :
