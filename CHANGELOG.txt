@@ -1,3 +1,79 @@
+== Version 2.0.4 ==
+
+  UPGRADE NOTE :
+    - You should re-generate the media files (python manage.py generatemedia).
+
+  Users side :
+  ------------
+    # Some issues with the "model" bricks (ie: "Information of the entity") have been fixed.
+      For example in the brick configuration different IDs could be used for the available bricks & the chosen ones ; so the model brick was "lost".
+      The model brick was not proposed for the default configuration ; it was lost forever when it was edited.
+    # The "update" mode of the mass-import (aka CSV import) has been fixed.
+      Some fields proposed as key-fields did not work ; they are not proposed any more. The removed choices are :
+         - Sub-fields of ForeignKey (eg: sector__title). Notice that ForeignKeys work & sub-fields were not useful...
+         - Not enumerable ForeignKeys (eg: billing_address).
+         - ManyToManyFields.
+    # When an entity was definitively deleted from its detail-view, the page was not redirected after the deletion.
+    # Some typo were fixed.
+    # Apps:
+        * Activities :
+            - The layout of the activity creation forms have been fixed.
+        * Emails :
+            - The Signatures can now be deleted even if their are referenced by existing emails.
+              The FK is set to NULL in related emails.
+        * Commercial :
+            - The EntityFilter of objectives could not be changed when the related filter was not editable.
+              So not custom filters were excluded (which was stupid) ; only not visible filters (ie: private filters owned by other users) had to be excluded.
+        * Opportunities :
+            - When a relationship "linked quote" is deleted, the associated relationship "current quote" is deleted too if it exists.
+              Notice that existing "alone" relationships are kept.
+            - The label of the "submit" button for the creation form has been fixed.
+        * Billing :
+            - The button "Link to existing credit notes" has now the "link" style (it was the "add" one).
+
+  Developers side :
+  -----------------
+    Non breaking changes :
+    ----------------------
+        # The template "creme_core/generics/form/edit.html" has been fixed (a wrong sub-template was included).
+          Notice that it was not used in vanilla.
+        # Some useful CSS classes have been added to the content of different kind of pages (content-detail-view, content-form-view...).
+        # JavaScript:
+            - The qunit tests for WaitingSynchronization & SpamSynchronization bricks have been fixed.
+        # Apps:
+            * Persons :
+                - The layout of the forms for Contacts/Organisations has been fixed.
+                  It was ugly with additional blocks (ie: not visible in vanilla version).
+
+    Breaking changes :
+    ------------------
+        # The classes registered with 'creme_core.gui.bricks._BrickRegistry.register_4_model()' should have an attribute <id_ == creme.constants.MODELBRICK_ID>.
+          Note: it's already OK if it inherits 'EntityBrick'.
+        # The "spacer" <div> in "creme_core/generics/blockform/base.html" has been removed.
+        # JavaScript:
+            - Some issues with overriding of AJAX backend options in 'creme.ajax.Query()' have been fixed.
+        # Apps:
+            * Opportunities :
+                - The erroneous attribute 'AbstractOpportunity.submit_label' has been removed.
+            * Persons :
+                - A <div> has been added in the form-page for Contacts/Organisations to contain the Address blocks.
+            * VCFs :
+                - The form blocks in the VCF-file import form has been fixed.
+                  There was no bug in vanilla, but could affect custom code.
+
+    Internal breaking changes :
+    ---------------------------
+    (they should not cause problem if you have not deeply modified the source code of Creme)
+
+        # In the brick system :
+            - In the constructor of 'creme_core.models.BrickDetailviewLocation', the brick_id 'modelblock_{app}-{model}' are converted to 'modelblock'
+              (a data migration will be done later to avoid this hacks) ; so you should not use the QuerySet '.values()' or 'values_list()'
+              with the field "brick_id" (or you should do the same conversion).
+            - The brick returned by 'creme_core.gui.bricks._BrickRegistry.get_bricks' for id == 'modelblock_{app}-{model}' uses now the entity given in parameter ;
+              so "entity" must be passed for this kind of brick & model designed by '{app}-{model}' is ignored.
+            - The method 'creme_core.gui.bricks._BrickRegistry._generate_modelbrick_id()' has been removed.
+
+
 == Version 2.0.3 ==
 
   UPGRADE NOTE :
@@ -2858,7 +2934,7 @@
             - Objectives: Entities can now be counted with a Filter.
         * Documents :
             - 'Folder.description' field is now nullable (ie: no more required).
-        * VCFS :
+        * VCFs :
             - Can export a Contact as a VCF file.
 
   Developers side :
