@@ -1,0 +1,4 @@
+{% extends 'creme_core/frags/list_view_content.html' %}
+{% block extra_buttons_hidden %}
+    <input value="{{parent_id}}"            type="hidden" name="parent_id" />
+{% endblock %}

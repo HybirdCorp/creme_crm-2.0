@@ -118,6 +118,7 @@ def abstract_list_folders(request, **extra_kwargs):
     return generic.list_view(
         request, Folder,
         hf_pk=DEFAULT_HFILTER_FOLDER,
+        content_template='documents/frags/folder_listview_content.html',
         extra_q=extra_q,
         extra_dict={'parent_id': parent_id or '',
                     'extra_bt_templates': ('documents/frags/previous.html', ),
