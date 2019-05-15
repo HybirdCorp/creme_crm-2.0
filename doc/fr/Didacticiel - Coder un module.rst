@@ -3,7 +3,7 @@ Carnet du développeur de modules Creme
 ======================================
 
 :Author: Guillaume Englert
-:Version: 10-01-2019 pour la version 2.0 de Creme
+:Version: 15-05-2019 pour la version 2.0 de Creme
 :Copyright: Hybird
 :License: GNU FREE DOCUMENTATION LICENSE version 1.3
 :Errata: Hugo Smett
@@ -935,7 +935,7 @@ Il devrait ressembler à ça: ::
 
 Puis ajoutons un champ 'status' dans notre modèle ``Beaver`` : ::
 
-    from django.db.models import CharField, DateField, ForeignKey  # <- NEW
+    from django.db.models import CharField, DateField, ForeignKey, PROTECT  # <- NEW
     from django.urls import reverse
     from django.utils.translation import ugettext_lazy as _
 
@@ -947,7 +947,7 @@ Puis ajoutons un champ 'status' dans notre modèle ``Beaver`` : ::
     class Beaver(CremeEntity):
         name     = CharField(_('Name'), max_length=100)
         birthday = DateField(_('Birthday'))
-        status   = ForeignKey(Status, verbose_name=_('Status'))  # <- NEW
+        status   = ForeignKey(Status, verbose_name=_('Status'), on_delete=PROTECT)  # <- NEW
 
         [....]
 
