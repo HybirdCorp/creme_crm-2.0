@@ -2,7 +2,7 @@
 
 ################################################################################
 #    Creme is a free/open-source Customer Relationship Management software
-#    Copyright (C) 2009-2018  Hybird
+#    Copyright (C) 2009-2019  Hybird
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -30,7 +30,6 @@ from creme.creme_core.auth.entity_credentials import EntityCredentials
 from creme.creme_core.models import CremeEntity, InstanceBrickConfigItem
 
 from ..constants import RFT_RELATION, RFT_FIELD, GROUP_TYPES
-
 
 logger = logging.getLogger(__name__)
 
@@ -66,6 +65,14 @@ class AbstractReportGraph(CremeEntity):
 
     def get_related_entity(self):
         return self.linked_report
+
+    def delete(self, *args, **kwargs):
+        # NB: we call InstanceBrickConfigItem.delete() explicitly to delete
+        #     related BrickDetailviewLocation/BrickHomeLocation/... instances
+        for ibci in InstanceBrickConfigItem.objects.filter(entity=self.id):
+            ibci.delete()
+
+        super().delete(*args, **kwargs)
 
     # def fetch(self, extra_q=None, order='ASC'):
     def fetch(self, user, extra_q=None, order='ASC'):
