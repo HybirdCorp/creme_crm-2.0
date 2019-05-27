@@ -1,3 +1,18 @@
+== Version 2.0.5 ==
+
+  Users side :
+  ------------
+    # The group label in the bricks linked to a specific RelationType has been fixed
+      (it could indicate the same type for several entities with different types).
+    # Apps:
+        * Documents :
+            - An issue in the reloading of child folder list-view has been fixed.
+        * Reports :
+            - The ReportGraph brick did not use the chart type of the graph as the default one (like the graph's preview).
+            - When deleting a ReportGraph with related <instance bricks> configured locations, these locations were not deleted.
+              Some ugly 'BLOCK' remained in the bricks configuration page.
+
+
 == Version 2.0.4 ==
 
   UPGRADE NOTE :
