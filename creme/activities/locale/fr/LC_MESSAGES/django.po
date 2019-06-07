@@ -1,5 +1,5 @@
 # FR LOCALISATION OF 'ACTIVITIES' APP
-# Copyright (C) 2018 Hybird
+# Copyright (C) 2019 Hybird
 # This file is distributed under the same license as the Creme package.
 #
 # > django-admin.py makemessages -l fr -i "tests/*"
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Creme Activities 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 14:31+0100\n"
+"POT-Creation-Date: 2019-06-07 15:28+0200\n"
 "Last-Translator: Hybird <contact@hybird.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -943,11 +943,15 @@ msgstr "Ajouter les sujets"
 msgid "One entity does not exist any more."
 msgstr "Une fiche n'existe plus."
 
-#: views/calendar.py:327
+#: views/calendar.py:328
 msgid "You are not allowed to delete this calendar."
 msgstr "Vous n'êtes pas autorisé à effacer ce calendrier."
 
-#: views/calendar.py:351
+#: views/calendar.py:339
+msgid "You cannot delete your last calendar."
+msgstr "Vous ne pouvez pas supprimer votre dernier calendrier."
+
+#: views/calendar.py:361
 #, python-brace-format
 msgid "Change calendar of «{object}»"
 msgstr "Changer le calendrier de «{object}»"
