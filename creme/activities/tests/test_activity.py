@@ -188,6 +188,9 @@ class ActivityTestCase(_ActivitiesTestCase):
 
         dojo = Organisation.objects.create(user=user, name='Dojo')
 
+        my_calendar = Calendar.get_user_default_calendar(user)
+
+        # GET ---
         url = self.ADD_URL
         lv_url = Activity.get_lv_absolute_url()
         response = self.assertGET200(url, HTTP_REFERER='http://testserver' + lv_url)
@@ -199,9 +202,14 @@ class ActivityTestCase(_ActivitiesTestCase):
         self.assertEqual(_('Save the activity'),  context.get('submit_label'))
         self.assertEqual(lv_url,                  context.get('cancel_url'))
 
+        with self.assertNoException():
+            my_part_f = context['form'].fields['my_participation']
+
+        self.assertEqual((True, my_calendar.id), my_part_f.initial)
+
+        # POST ---
         title = 'My task'
         status = Status.objects.all()[0]
-        my_calendar = Calendar.get_user_default_calendar(user)
         response = self.client.post(
             url, follow=True,
             data={'user':               user.pk,
