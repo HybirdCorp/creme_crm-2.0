@@ -3,7 +3,7 @@ Carnet du développeur de modules Creme
 ======================================
 
 :Author: Guillaume Englert
-:Version: 15-05-2019 pour la version 2.0 de Creme
+:Version: 28-06-2019 pour la version 2.0 de Creme
 :Copyright: Hybird
 :License: GNU FREE DOCUMENTATION LICENSE version 1.3
 :Errata: Hugo Smett
@@ -1356,16 +1356,16 @@ l'installation, il faut s'en occuper dans notre fichier ``beavers/populate.py`` 
             RIGHT = BrickDetailviewLocation.RIGHT
 
             # Ca c'est le bloc qui affichera les différents champs des castors
-            BrickDetailviewLocation.create_4_model_brick(order=5, zone=LEFT,  model=Beaver)
+            BrickDetailviewLocation.create_4_model_brick(order=5, zone=LEFT, model=Beaver)
 
             # Les blocs de creme_core qui sont en général présents sur toutes les vues détaillées
-            BrickDetailviewLocation.create(block_id=core_bricks.CustomFieldsBrick.id_, order=40,  zone=LEFT,  model=Beaver)
-            BrickDetailviewLocation.create(block_id=core_bricks.PropertiesBrick.id_,   order=450, zone=LEFT,  model=Beaver)
-            BrickDetailviewLocation.create(block_id=core_bricks.RelationsBrick.id_,    order=500, zone=LEFT,  model=Beaver)
-            BrickDetailviewLocation.create(block_id=core_bricks.HistoryBrick.id_,      order=30,  zone=RIGHT, model=Beaver)
+            BrickDetailviewLocation.create_if_needed(brick_id=core_bricks.CustomFieldsBrick.id_, order=40,  zone=LEFT,  model=Beaver)
+            BrickDetailviewLocation.create_if_needed(brick_id=core_bricks.PropertiesBrick.id_,   order=450, zone=LEFT,  model=Beaver)
+            BrickDetailviewLocation.create_if_needed(brick_id=core_bricks.RelationsBrick.id_,    order=500, zone=LEFT,  model=Beaver)
+            BrickDetailviewLocation.create_if_needed(brick_id=core_bricks.HistoryBrick.id_,      order=30,  zone=RIGHT, model=Beaver)
 
             # Là c'est notre nouveau bloc
-            BrickDetailviewLocation.create(block_id=BeaverAgeBrick.id_, order=40, zone=RIGHT, model=Beaver)
+            BrickDetailviewLocation.create_if_needed(brick_id=BeaverAgeBrick.id_, order=40, zone=RIGHT, model=Beaver)
 
             # Classiquement on ajoute aussi les blocs de l'app "assistants" (en vérifiant qu'elle est installée)
             # Le lecteur intéressé ira regarder dans le code source d'une app Creme pour voir comment...
