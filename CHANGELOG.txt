@@ -1,3 +1,30 @@
+== Version 2.0.6 ==
+
+  UPGRADE NOTE :
+    - You should upgrade the minor version of Django 1.11 (1.11.22 or more) (eg: pip install -U django==1.11.22).
+
+  Users side :
+  ------------
+    # Apps:
+        * Activities :
+            - When a user deleted the default Calendar from its configuration, the activities re-assignment did not work.
+            - In the Activity creation form, "my" Calendar is correctly initialized to the default Calendar.
+            - The deletion button for not custom Calendars in "My settings" is now disabled.
+
+  Developers side :
+  -----------------
+    Non breaking changes :
+    ----------------------
+        # The populating of bricks has been fixed in the french documentation.
+        # The method 'FieldsConfig.get_4_models()' uses now the given class wherever it's possible.
+
+    Breaking changes :
+    ------------------
+        # Apps:
+            * Billing :
+                - The view named "billing__delete_related_cnote" now accepts only POST requests.
+
+
 == Version 2.0.5 ==
 
   Users side :
