@@ -1,3 +1,17 @@
+== Version 2.0.7 ==
+
+  UPGRADE NOTE :
+    - You should upgrade the minor version of Django 1.11 (1.11.23 or more) (eg: pip install -U django==1.11.23).
+
+  Users side :
+  ------------
+    # An encoding issue with the command "generatemedia" on Windows environment has been fixed.
+    # The related filter condition is deleted when a date CustomField is deleted.
+    # Apps:
+        * Commercial :
+            - The view which removes an evaluated organisation is more robust (a transaction has been added).
+
+
 == Version 2.0.6 ==
 
   UPGRADE NOTE :
