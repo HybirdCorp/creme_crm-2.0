@@ -1,3 +1,13 @@
+== Version 2.0.8 ==
+
+  UPGRADE NOTE :
+    - You should upgrade the minor version of Django 1.11 (1.11.24 or more) (eg: pip install -U django==1.11.24).
+
+  Users side :
+  ------------
+    # The command "generatemedia" did not work with Python 3.5 since the version <2.0.7>.
+
+
 == Version 2.0.7 ==
 
   UPGRADE NOTE :
