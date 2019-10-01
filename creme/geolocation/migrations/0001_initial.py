@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                                                     choices=[(0, 'Not localized'),
                                                              (1, 'Manual location'),
                                                              (2, 'Partially matching location'),
-                                                             (3, b''),
+                                                             (3, ''),
                                                             ],
                                                    )
                 ),

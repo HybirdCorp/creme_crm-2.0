@@ -101,7 +101,7 @@ class Migration(migrations.Migration):
                 ),
                 ('title', models.CharField(max_length=100, verbose_name='Name')),
                 ('description', models.TextField(verbose_name='Description', blank=True)),
-                ('filedata', models.FileField(upload_to=b'upload/documents', max_length=500, verbose_name='File')),
+                ('filedata', models.FileField(upload_to='upload/documents', max_length=500, verbose_name='File')),
                 # ('folder', models.ForeignKey(to=settings.DOCUMENTS_FOLDER_MODEL, on_delete=PROTECT, verbose_name='Folder')),
                 ('linked_folder', models.ForeignKey(to=settings.DOCUMENTS_FOLDER_MODEL, on_delete=PROTECT, verbose_name='Folder')),
                 ('categories', models.ManyToManyField(to='documents.DocumentCategory', verbose_name='Categories', blank=True)),
