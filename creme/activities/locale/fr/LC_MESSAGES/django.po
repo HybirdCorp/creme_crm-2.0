@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Creme Activities 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-07 15:28+0200\n"
+"POT-Creation-Date: 2019-10-17 19:10+0200\n"
 "Last-Translator: Hybird <contact@hybird.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -55,12 +55,12 @@ msgstr "Tâche"
 msgid "Unavailability"
 msgstr "Indisponibilité"
 
-#: bricks.py:53 forms/activity.py:280 forms/activity.py:508 forms/bricks.py:51
+#: bricks.py:53 forms/activity.py:281 forms/activity.py:520 forms/bricks.py:51
 #: forms/mass_import.py:571 templates/activities/bricks/participants.html:7
 msgid "Participants"
 msgstr "Participants"
 
-#: bricks.py:95 forms/activity.py:271 forms/bricks.py:156
+#: bricks.py:95 forms/activity.py:270 forms/bricks.py:156
 #: templates/activities/bricks/subjects.html:7
 msgid "Subjects"
 msgstr "Sujets"
@@ -123,57 +123,57 @@ msgstr "Créer une démo"
 msgid "Create an unavailability"
 msgstr "Créer une indisponibilité"
 
-#: forms/activity.py:53 forms/activity_type.py:193 forms/mass_import.py:561
+#: forms/activity.py:52 forms/activity_type.py:193 forms/mass_import.py:561
 msgid "Type"
 msgstr "Type"
 
-#: forms/activity.py:57
+#: forms/activity.py:56
 msgid "Start time"
 msgstr "Heure de début"
 
-#: forms/activity.py:58
+#: forms/activity.py:57
 msgid "End time"
 msgstr "Heure de fin"
 
-#: forms/activity.py:61
+#: forms/activity.py:60
 msgid "A floating on the day activity can't busy its participants"
 msgstr ""
 "Une activité flottante dans une journée ne peut marquer comme 'occupés' ses "
 "participants"
 
-#: forms/activity.py:62
+#: forms/activity.py:61
 msgid "You can't set the end of your activity without setting its start"
 msgstr "Vous en pouvez préciser la fin de l'activité sans préciser son début"
 
-#: forms/activity.py:63 forms/mass_import.py:615
+#: forms/activity.py:62 forms/mass_import.py:615
 msgid "End time is before start time"
 msgstr "L'heure de fin est avant le début"
 
-#: forms/activity.py:70
+#: forms/activity.py:69
 msgid "Default duration of the type will be used if you leave blank."
 msgstr "La durée par défaut du type sera utilisée si vous laissez vide."
 
-#: forms/activity.py:79
+#: forms/activity.py:78
 msgid "It is only informative and is not used to compute the end time."
 msgstr "Seulement informative et pas utilisée pour calculer l'heure de fin."
 
-#: forms/activity.py:201 forms/activity.py:279 forms/activity.py:507
+#: forms/activity.py:200 forms/activity.py:280 forms/activity.py:519
 msgid "When"
 msgstr "Quand"
 
-#: forms/activity.py:234 forms/bricks.py:47 forms/mass_import.py:567
+#: forms/activity.py:233 forms/bricks.py:47 forms/mass_import.py:567
 msgid "Other participating users"
 msgstr "Autres utilisateurs participants"
 
-#: forms/activity.py:268 forms/bricks.py:46 forms/mass_import.py:565
+#: forms/activity.py:267 forms/bricks.py:46 forms/mass_import.py:565
 msgid "Do I participate to this activity?"
 msgstr "Est-ce que je participe à cette activité ?"
 
-#: forms/activity.py:270
+#: forms/activity.py:269
 msgid "Other participants"
 msgstr "Autres participants"
 
-#: forms/activity.py:272
+#: forms/activity.py:271
 msgid "Entities linked to this activity"
 msgstr "Fiches reliées à l'activité"
 
@@ -181,45 +181,50 @@ msgstr "Fiches reliées à l'activité"
 msgid "No participant"
 msgstr "Aucun Participant"
 
-#: forms/activity.py:282 forms/activity.py:323
+#: forms/activity.py:276
+msgid "You cannot set a relative alert on a floating activity"
+msgstr ""
+"Vous ne pouvez pas mettre une alerte relative sur une activité flottante"
+
+#: forms/activity.py:283 forms/activity.py:324
 msgid "Generate an alert on a specific date"
 msgstr "Générer une alerte à une date spécifique"
 
-#: forms/activity.py:283 forms/activity.py:327
+#: forms/activity.py:284 forms/activity.py:328
 msgid "Generate an alert in a while"
 msgstr "Générer une alerte dans un certain temps"
 
-#: forms/activity.py:284 forms/activity.py:354
+#: forms/activity.py:285 forms/activity.py:355
 msgid "Users to keep informed"
 msgstr "Utilisateurs à tenir informés"
 
-#: forms/activity.py:306 forms/bricks.py:76
+#: forms/activity.py:307 forms/bricks.py:76
 msgid ""
 "The organisations of the participants will be automatically added as subjects"
 msgstr ""
 "Les sociétés des participants seront ajoutées automatiquement en tant que "
 "sujets"
 
-#: forms/activity.py:329
+#: forms/activity.py:330
 msgid "How long before the activity's start the alert is raised?"
 msgstr ""
 "Combien de temps avant le début de l'activité l'alerte est-elle déclenchée ?"
 
-#: forms/activity.py:414
+#: forms/activity.py:426
 msgid "Alert of activity"
 msgstr "Alerte d'activité"
 
-#: forms/activity.py:415
+#: forms/activity.py:427
 #, python-brace-format
 msgid "Alert related to {activity}"
 msgstr "Alerte en rapport avec {activity}"
 
-#: forms/activity.py:439
+#: forms/activity.py:451
 #, python-brace-format
 msgid "[Creme] Activity created: {activity}"
 msgstr "[Creme] Activité créée : {activity}"
 
-#: forms/activity.py:440
+#: forms/activity.py:452
 #, python-brace-format
 msgid ""
 "A new activity has been created: {activity}.\n"
@@ -236,15 +241,15 @@ msgstr ""
 "    Sujets : {subjects}.\n"
 "    Participants : {participants}."
 
-#: forms/activity.py:448 forms/activity.py:449
+#: forms/activity.py:460 forms/activity.py:461
 msgid "not specified"
 msgstr "non renseigné"
 
-#: forms/activity.py:496
+#: forms/activity.py:508
 msgid "Unavailability type"
 msgstr "Type d'indisponibilité"
 
-#: forms/activity.py:524
+#: forms/activity.py:536
 msgid "Unavailable users"
 msgstr "Utilisateurs non-disponibles"
 

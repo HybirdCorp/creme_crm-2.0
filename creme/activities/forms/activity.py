@@ -43,7 +43,6 @@ from ..setting_keys import form_user_messages_key
 from .activity_type import ActivityTypeField
 from .fields import UserParticipationField
 
-
 logger = logging.getLogger(__name__)
 Contact = get_contact_model()
 Activity = get_activity_model()
@@ -271,9 +270,11 @@ class ActivityCreateForm(_ActivityCreateForm):
     subjects            = MultiGenericEntityField(label=_(u'Subjects'), required=False)
     linked_entities     = MultiGenericEntityField(label=_(u'Entities linked to this activity'), required=False)
 
-    error_messages = dict(_ActivityCreateForm.error_messages,
-                          no_participant=_('No participant'),
-                         )
+    error_messages = dict(
+        _ActivityCreateForm.error_messages,
+        no_participant=_('No participant'),
+        alert_on_floating=_('You cannot set a relative alert on a floating activity'),
+    )
 
     blocks = _ActivityForm.blocks.new(
         ('datetime',       _(u'When'),         ['start', 'start_time', 'end', 'end_time', 'is_all_day']),
@@ -353,6 +354,17 @@ class ActivityCreateForm(_ActivityCreateForm):
                 required=False,
                 label=_('Users to keep informed'),
             )
+
+    def clean_alert_period(self):
+        cdata = self.cleaned_data
+        alert_period = cdata['alert_period']
+
+        if alert_period and not cdata.get('start'):
+            raise ValidationError(self.error_messages['alert_on_floating'],
+                                  code='alert_on_floating',
+                                 )
+
+        return alert_period
 
     def clean_my_participation(self):
         my_participation = self.cleaned_data['my_participation']
