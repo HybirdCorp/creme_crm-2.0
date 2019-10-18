@@ -167,3 +167,13 @@ UNINSTALL APPS:
 
 When you have a working installation, & want to remove an (optional) app, use the command 'creme_uninstall' which will
 clean the DB. When it's done, you can comment the app in local_settings.py
+
+
+KNOWN ISSUES:
+
+ - If you generate translation files (.po), in some languages (eg : "en") the meta-data "Plural-Forms" are broken.
+   In english file, replace :
+        "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+   by :
+        "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+   This Django's bug (https://code.djangoproject.com/ticket/28085) is fixed in Django 2.0 (& so Creme 2.1).

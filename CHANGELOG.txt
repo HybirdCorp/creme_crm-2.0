@@ -1,3 +1,31 @@
+== Version 2.0.9 ==
+
+  UPGRADE NOTE :
+    - You should upgrade the minor version of Django 1.11 (1.11.25 or more) (eg: pip install -U django==1.11.25).
+
+  Users side :
+  ------------
+    # Several typo were fixed in french translation.
+    # Apps:
+        * Activities :
+            - A validation error is now raised when you try to set a relative alert on a floating activity. It caused a crash before.
+        * Opportunities :
+            - The number of a billing document (in the detail-view of an Opportunity) is hidden when you cannot see this document.
+
+
+  Developers side :
+  -----------------
+    Non breaking changes :
+    ----------------------
+        # Two strings in migrations were fixed (they remained as bytes).
+        # Some typo were fixed in the command "check_swappable_urls".
+        # Apps:
+            * Billing:
+                - The erroneous template of invoice edition view has been removed.
+            * Graphs:
+                - The exceptions raised in the method 'AbstractGraph.generate_png()' has been fixed (for extension purposes).
+
+
 == Version 2.0.8 ==
 
   UPGRADE NOTE :
