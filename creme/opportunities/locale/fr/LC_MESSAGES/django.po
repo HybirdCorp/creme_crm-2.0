@@ -1,5 +1,5 @@
 # FR LOCALISATION OF 'OPPORTUNITIES' APP
-# Copyright (C) 2018 Hybird
+# Copyright (C) 2019 Hybird
 # This file is distributed under the same license as the Creme package.
 #
 # > django-admin.py makemessages -l fr -i "tests/*"
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Creme Opportunities 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 17:07+0100\n"
+"POT-Creation-Date: 2019-10-18 12:00+0200\n"
 "Last-Translator: Hybird <contact@hybird.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -25,51 +25,51 @@ msgstr "Opportunités"
 msgid "Commercial"
 msgstr "Commercial"
 
-#: bricks.py:49
+#: bricks.py:51
 msgid "Card header block"
 msgstr "Bloc «carte de visite»"
 
-#: bricks.py:82
+#: bricks.py:84
 msgid "Information on the opportunity"
 msgstr "Informations sur l'opportunité"
 
-#: bricks.py:115
+#: bricks.py:117
 msgid "Linked Contacts"
 msgstr "Contacts liés"
 
-#: bricks.py:126
+#: bricks.py:128
 msgid "Linked Products"
 msgstr "Produits liés"
 
-#: bricks.py:138
+#: bricks.py:140
 msgid "Linked Services"
 msgstr "Services liés"
 
-#: bricks.py:150 templates/opportunities/bricks/managers.html:7
+#: bricks.py:152 templates/opportunities/bricks/managers.html:7
 msgid "Business managers"
 msgstr "Responsables"
 
-#: bricks.py:161
+#: bricks.py:163
 msgid "Opportunities which target the organisation / contact"
 msgstr "Opportunités qui ciblent la société / le contact"
 
-#: bricks.py:190
+#: bricks.py:192
 msgid "Total"
 msgstr "Total"
 
-#: bricks.py:199 templates/opportunities/bricks/target.html:8
+#: bricks.py:201 templates/opportunities/bricks/target.html:8
 msgid "Target and source"
 msgstr "Cible et source"
 
-#: bricks.py:242
+#: bricks.py:244
 msgid "Quotes linked to the opportunity"
 msgstr "Devis liés à l'opportunité"
 
-#: bricks.py:258
+#: bricks.py:260
 msgid "Salesorders linked to the opportunity"
 msgstr "Bons de commande liés à l'opportunité"
 
-#: bricks.py:274
+#: bricks.py:276
 msgid "Invoices linked to the opportunity"
 msgstr "Factures liées à l'opportunité"
 
@@ -222,7 +222,7 @@ msgstr "Opportunité"
 
 #: models/opportunity.py:150
 msgid "Emitter is required."
-msgstr "Un emmeteur est requis."
+msgstr "Un émetteur est requis."
 
 #: models/opportunity.py:153
 msgid "Target is required."
@@ -447,7 +447,7 @@ msgstr "Lier à des contacts"
 #: templates/opportunities/bricks/invoices.html:20
 #: templates/opportunities/bricks/managers.html:17
 #: templates/opportunities/bricks/products.html:17
-#: templates/opportunities/bricks/quotes.html:33
+#: templates/opportunities/bricks/quotes.html:40
 #: templates/opportunities/bricks/sales-orders.html:20
 #: templates/opportunities/bricks/services.html:17
 msgid "Unlink"
@@ -484,11 +484,11 @@ msgstr "Générer une facture"
 msgid "Link to an invoice"
 msgstr "Lier à une facture"
 
-#: templates/opportunities/bricks/invoices.html:30
+#: templates/opportunities/bricks/invoices.html:32
 msgid "Unlink this invoice"
 msgstr "Délier cette facture"
 
-#: templates/opportunities/bricks/invoices.html:37
+#: templates/opportunities/bricks/invoices.html:39
 msgid "No linked invoice for the moment"
 msgstr "Aucune facture liée pour le moment"
 
@@ -614,45 +614,45 @@ msgstr "Délier ce produit"
 msgid "No related product for the moment"
 msgstr "Aucun produit concerné pour le moment"
 
-#: templates/opportunities/bricks/quotes.html:19
+#: templates/opportunities/bricks/quotes.html:26
 #, python-brace-format
 msgid "{count} Proposed quote"
 msgstr "{count} Devis proposé"
 
-#: templates/opportunities/bricks/quotes.html:19
+#: templates/opportunities/bricks/quotes.html:26
 #, python-brace-format
 msgid "{count} Proposed quotes"
 msgstr "{count} Devis proposés"
 
-#: templates/opportunities/bricks/quotes.html:19
+#: templates/opportunities/bricks/quotes.html:26
 msgid "Proposed quotes"
 msgstr "Devis proposés"
 
-#: templates/opportunities/bricks/quotes.html:25
+#: templates/opportunities/bricks/quotes.html:32
 msgid "Generate a current quote"
 msgstr "Générer un devis courant"
 
-#: templates/opportunities/bricks/quotes.html:26
+#: templates/opportunities/bricks/quotes.html:33
 msgid "Link to a quote"
 msgstr "Lier à un devis"
 
-#: templates/opportunities/bricks/quotes.html:32
+#: templates/opportunities/bricks/quotes.html:39
 msgid "Current quote?"
 msgstr "Devis courant ?"
 
-#: templates/opportunities/bricks/quotes.html:54
+#: templates/opportunities/bricks/quotes.html:60
 msgid "Yes"
 msgstr "Oui"
 
-#: templates/opportunities/bricks/quotes.html:62
+#: templates/opportunities/bricks/quotes.html:65
 msgid "No"
 msgstr "Non"
 
-#: templates/opportunities/bricks/quotes.html:66
+#: templates/opportunities/bricks/quotes.html:69
 msgid "Unlink this quote"
 msgstr "Délier ce devis"
 
-#: templates/opportunities/bricks/quotes.html:74
+#: templates/opportunities/bricks/quotes.html:77
 msgid "No linked quote for the moment"
 msgstr "Aucun devis lié pour le moment"
 
@@ -678,11 +678,11 @@ msgstr "Générer un bon de commande"
 msgid "Link to a salesorder"
 msgstr "Lier à un bon"
 
-#: templates/opportunities/bricks/sales-orders.html:30
+#: templates/opportunities/bricks/sales-orders.html:32
 msgid "Unlink this salesorder"
 msgstr "Délier ce bon"
 
-#: templates/opportunities/bricks/sales-orders.html:37
+#: templates/opportunities/bricks/sales-orders.html:39
 msgid "No salesorder for the moment"
 msgstr "Aucun bon enregistré pour le moment"
 

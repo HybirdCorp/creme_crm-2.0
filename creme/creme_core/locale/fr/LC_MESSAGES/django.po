@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Creme Creme-Core 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-27 12:09+0200\n"
+"POT-Creation-Date: 2019-10-18 11:56+0200\n"
 "Last-Translator: Hybird <contact@hybird.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -770,7 +770,7 @@ msgstr ""
 
 #: forms/fields.py:1073
 msgid "Enter a value if you check the box."
-msgstr "Entrez une valeur si vous chochez la case."
+msgstr "Entrez une valeur si vous cochez la case."
 
 #: forms/fields.py:1329
 msgid ""

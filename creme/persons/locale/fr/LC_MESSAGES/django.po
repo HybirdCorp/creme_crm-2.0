@@ -1,5 +1,5 @@
 # FR LOCALISATION OF 'PERSONS' APP
-# Copyright (C) 2018 Hybird
+# Copyright (C) 2019 Hybird
 # This file is distributed under the same license as the Creme package.
 #
 # > django-admin.py makemessages -l fr -i "tests/*"
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Creme Persons 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 17:11+0100\n"
+"POT-Creation-Date: 2019-10-18 12:13+0200\n"
 "Last-Translator: Hybird <contact@hybird.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -56,43 +56,43 @@ msgstr "Pas contacté depuis 15j"
 msgid "Never contacted"
 msgstr "Jamais contacté"
 
-#: bricks.py:189 bricks.py:219
+#: bricks.py:191 bricks.py:221
 msgid "Card header block"
 msgstr "Bloc «carte de visite»"
 
-#: bricks.py:260
+#: bricks.py:262
 msgid "Organisation managers"
 msgstr "Responsables d'une société"
 
-#: bricks.py:268
+#: bricks.py:270
 msgid "Create a manager"
 msgstr "Créer un responsable"
 
-#: bricks.py:288
+#: bricks.py:290
 msgid "Organisation employees"
 msgstr "Salariés d'une société"
 
-#: bricks.py:295
+#: bricks.py:297
 msgid "Create an employee"
 msgstr "Créer un salarié"
 
-#: bricks.py:365
+#: bricks.py:367
 msgid "Addresses (detailed)"
 msgstr "Adresses (détaillées)"
 
-#: bricks.py:371
+#: bricks.py:373
 msgid "Addresses (pretty)"
 msgstr "Adresses (jolies)"
 
-#: bricks.py:397
+#: bricks.py:399
 msgid "Other addresses (detailed)"
 msgstr "Adresses supplémentaires (détaillées)"
 
-#: bricks.py:404
+#: bricks.py:406
 msgid "Other addresses (pretty)"
 msgstr "Adresses supplémentaires (jolies)"
 
-#: bricks.py:438 templates/persons/bricks/neglected-organisations.html:7
+#: bricks.py:440 templates/persons/bricks/neglected-organisations.html:7
 msgid "Neglected organisations"
 msgstr "Sociétés délaissées"
 
@@ -176,7 +176,7 @@ msgstr "Vous n'êtes pas autorisé à créer une Société."
 
 #: forms/quick.py:46
 msgid "No linkable Organisation found."
-msgstr "Aucune Société liable n'a été trouvée."
+msgstr "Aucune Société reliable n'a été trouvée."
 
 #: forms/quick.py:47
 msgid "Several Organisations with this name have been found."
@@ -701,7 +701,7 @@ msgstr "Créer une adresse de livraison"
 
 #: templates/persons/bricks/base/addresses.html:53
 msgid "No address for the moment"
-msgstr "Aucune addresse pour le moment"
+msgstr "Aucune adresse pour le moment"
 
 #: templates/persons/bricks/base/linked-people.html:7
 msgid "Link to contacts"
@@ -745,7 +745,7 @@ msgstr "Adresses supplémentaires"
 
 #: templates/persons/bricks/base/other-addresses.html:39
 msgid "No other address set for the moment"
-msgstr "Aucune addresse supplémentaire enregistrée pour le moment"
+msgstr "Aucune adresse supplémentaire enregistrée pour le moment"
 
 #: templates/persons/bricks/contact-hat-card.html:24
 #: templates/persons/bricks/organisation-hat-card.html:41
@@ -1015,7 +1015,7 @@ msgstr "Modifier l'adresse pour «%s»"
 #: views/address.py:125
 #, python-brace-format
 msgid "Adding address to «{entity}»"
-msgstr "Ajouter une addresse à «{entity}»"
+msgstr "Ajouter une adresse à «{entity}»"
 
 #: views/address.py:130
 #, python-brace-format
