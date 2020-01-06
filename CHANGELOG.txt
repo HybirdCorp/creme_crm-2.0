@@ -1,3 +1,17 @@
+== Version 2.0.11 ==
+
+  UPGRADE NOTE :
+    - You should upgrade the minor version of Django 1.11 (1.11.27 or more) (eg: pip install -U django==1.11.27).
+
+  Users side :
+  ------------
+    # Apps:
+        * Persons :
+            - The button "Become supplier" could not be displayed on Contacts' detail-view.
+        * Billing :
+            - In the Lines bricks, the client-side validation of discount was broken for "amount" discounts (per line & per item).
+
+
 == Version 2.0.10 ==
 
   UPGRADE NOTE :
