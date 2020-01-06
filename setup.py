@@ -36,9 +36,9 @@ setup(
     zip_safe=False,
     long_description=README,
     install_requires=[
-        "django>=1.11.25,<1.11.1024",
+        "django>=1.11.27,<1.11.1024",
         "redis>=2.10,<2.10.1024",
-        "Pillow>=5<5.1024",
+        "Pillow>=5,<5.1024",
         "python-dateutil>=2.7.3,<2.7.1024",
         "bleach>=2.1.4,<2.1.1024",
         "django-formtools==2.1",
