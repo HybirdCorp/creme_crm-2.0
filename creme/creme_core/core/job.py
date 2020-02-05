@@ -2,7 +2,7 @@
 
 ################################################################################
 #    Creme is a free/open-source Customer Relationship Management software
-#    Copyright (C) 2016-2019  Hybird
+#    Copyright (C) 2016-2020  Hybird
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -655,7 +655,7 @@ class JobManager:
                                               )
                             else:
                                 # heappush(system_jobs, (job.next_wakeup(now_value), job))
-                                heappush(system_jobs, (job.next_wakeup(now_value), job.id, job))
+                                heappush(system_jobs, (job.next_wakeup(now_value), job.job_id, job))
                                 logger.warning('JobManager: deferred job still does not exist: %s', job.job_id)
                         else:
                             self._push_user_job(real_job)
