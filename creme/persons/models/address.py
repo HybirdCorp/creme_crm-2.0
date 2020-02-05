@@ -2,7 +2,7 @@
 
 ################################################################################
 #    Creme is a free/open-source Customer Relationship Management software
-#    Copyright (C) 2009-2018  Hybird
+#    Copyright (C) 2009-2020  Hybird
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -92,10 +92,11 @@ class AbstractAddress(CremeModel):
 
     def clone(self, entity):
         """Returns a new cloned (saved) address for a (saved) entity."""
-        return Address.objects.create(object_id=entity.id,
-                                      content_type=ContentType.objects.get_for_model(entity),
-                                      **dict(self.info_fields)
-                                     )
+        # return Address.objects.create(object_id=entity.id,
+        return type(self).objects.create(object_id=entity.id,
+                                         content_type=ContentType.objects.get_for_model(entity),
+                                         **dict(self.info_fields)
+                                        )
 
     @classmethod
     def info_field_names(cls):
