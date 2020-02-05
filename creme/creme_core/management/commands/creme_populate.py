@@ -158,7 +158,7 @@ class Command(BaseCommand):
 
         for populator in populators:
             if verbosity >= 1:
-                self.stdout.write('Populate "{}" ...'.format(populator.app, ending=''))
+                self.stdout.write('Populate "{}" ...'.format(populator.app), ending='')
                 self.stdout.flush()
 
             try:
