@@ -27,11 +27,14 @@ class FormRegistry:
         self._form_factories = {}
 
     def register(self, model, factory=None):
-        """@param factory A callable that takes 2 parameters
-        header_dict, a dictionary key=column slugified name; value=column index
-        choices A list a choices, compliant with classical django Select widget.
-         and which returns a form class that inherits creme_core.forms.list_view_import.ImportForm.
-        'factory' can be None: it means that this ContentType use a generic import form.
+        """Register a form factory for a model.
+        @param model: Class inheriting CremeEntity.
+        @param factory: None or callable which takes 2 parameters
+               "header_dict" a dictionary key=column slugified name; value=column index
+               "choices" a list a choices, compliant with classical django Select widget.
+               and which returns a form class which inherits
+               <creme_core.forms.mass_import.ImportForm>.
+               <None> means that this model uses a generic import form.
         """
         self._form_factories[model] = factory
 
