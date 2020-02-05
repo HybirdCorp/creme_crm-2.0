@@ -1,7 +1,27 @@
+== Version 2.0.12 ==
+
+  UPGRADE NOTE :
+    - You should upgrade the minor version of Django 1.11 (1.11.28 or more) (eg: pip install -U django==1.11.28).
+
+  Developers side :
+  -----------------
+    Non breaking changes :
+    ----------------------
+        # A crash in the management of deferred jobs has been fixed.
+        # Some various error messages & doc-strings were fixed.
+        # The output of the command "creme_populate" has been fixed.
+        # Apps:
+            * Persons :
+                - The cloning of 'models.Address' is now "model-swappping" friendly.
+            * Crudity:
+                - The method 'registry.CRUDityRegistry.get_default_backend()' is now correct when inheritance is used.
+
+
 == Version 2.0.11 ==
 
   UPGRADE NOTE :
     - You should upgrade the minor version of Django 1.11 (1.11.27 or more) (eg: pip install -U django==1.11.27).
+    - You should re-generate the media files (python manage.py generatemedia).
 
   Users side :
   ------------
