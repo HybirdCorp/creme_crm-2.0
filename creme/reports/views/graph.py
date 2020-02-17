@@ -101,7 +101,7 @@ def detailview(request, graph_id):
     return abstract_view_rgraph(request, graph_id)
 
 
-# TODO: use prefix ?? (rfield-, ctield-, rtype-)
+# TODO: use prefix ?? (rfield-, cfield-, rtype-)
 def _get_available_report_graph_types(ct, name):
     model = ct.model_class()
 
