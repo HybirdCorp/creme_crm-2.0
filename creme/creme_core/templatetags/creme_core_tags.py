@@ -2,7 +2,7 @@
 
 ################################################################################
 #    Creme is a free/open-source Customer Relationship Management software
-#    Copyright (C) 2009-2018  Hybird
+#    Copyright (C) 2009-2020  Hybird
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -201,11 +201,6 @@ def eq(x, y):
 
 
 @register.filter
-def sub(object1, object2):
-    return object1 - object2
-
-
-@register.filter
 def and_op(object1, object2):
     return object1 and object2
 
@@ -236,20 +231,32 @@ def in_list(obj, sequence):
     return obj in sequence
 
 
+# NB: |add is provided by Django
 @register.filter
-def idiv(integer, integer2):
-    return integer / integer2
+def sub(x, y):
+    return x - y
 
 
 @register.filter
-def mult(integer, integer2):
-    return integer * integer2
+def mult(x, y):
+    return x * y
 
 
-# TODO: divisibleby in builtins....
 @register.filter
-def mod(integer, integer2):
-    return integer % integer2
+def idiv(integer1, integer2):
+    # return integer1 / integer2
+    return integer1 // integer2
+
+
+# TODO ?
+# @register.filter
+# def div(x, y):
+#     return x / y
+
+
+@register.filter
+def mod(integer1, integer2):
+    return integer1 % integer2
 
 
 @register.filter(name='xrange')
@@ -279,6 +286,7 @@ def format_string(ustring, format_str):
     return format_str % ustring
 
 
+# NB: seems not used any more...
 @register.filter
 def to_timestamp(date):
     return date.strftime('%s')
