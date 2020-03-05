@@ -1,3 +1,23 @@
+== Version 2.0.13 ==
+
+  UPGRADE NOTE :
+    - You should upgrade the minor version of Django 1.11 (1.11.29 or more) (eg: pip install -U django==1.11.29).
+
+  Users side :
+  ------------
+    # Apps :
+        * Reports :
+            - When a ReportGraph was edited, the grouping-type for abscissa (second <select>) was
+              reset to the first choice, ignoring the value in the graph.
+
+  Developers side :
+  -----------------
+    Non breaking changes :
+    ----------------------
+        # The template filter "idiv" has been fixed to use the floor division like this name is suggesting.
+          It was changed not voluntarily with the use of Python3.
+
+
 == Version 2.0.12 ==
 
   UPGRADE NOTE :
