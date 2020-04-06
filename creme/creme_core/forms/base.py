@@ -285,7 +285,7 @@ class CremeEntityForm(CremeModelWithUserForm):
     def __init__(self, *args, **kwargs):
         # super(CremeEntityForm, self).__init__(*args, **kwargs)
         super().__init__(*args, **kwargs)
-        assert self.instance, CremeEntity
+        assert isinstance(self.instance, CremeEntity)
         self._build_customfields()
 
         # TODO: move in CremeModelForm ???
