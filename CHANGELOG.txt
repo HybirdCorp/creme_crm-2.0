@@ -1,7 +1,29 @@
+== Version 2.0.14 ==
+
+  UPGRADE NOTE :
+    - The underlying version of Django (ie: 1.11) is not supported any more by the Django's team.
+      You should upgrade to Creme 2.1 which uses Django 2.2 .
+
+  Users side :
+  ------------
+    # Apps :
+        * Documents :
+            - The label of the "Download" button in the brick for related Documents has been fixed.
+        * Reports :
+            - The brick of ReportGraphs has been fixed ; the 'ordinate_error' was not used.
+
+  Developers side :
+  -----------------
+    Breaking changes :
+    ------------------
+        # The assertion in 'creme_core.forms.base.CremeEntityForm', which checks the model, has been fixed.
+
+
 == Version 2.0.13 ==
 
   UPGRADE NOTE :
     - You should upgrade the minor version of Django 1.11 (1.11.29 or more) (eg: pip install -U django==1.11.29).
+    - You should re-generate the media files (python manage.py generatemedia).
 
   Users side :
   ------------
