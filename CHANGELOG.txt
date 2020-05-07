@@ -1,3 +1,16 @@
+== Version 2.0.15 ==
+
+  Users side :
+  ------------
+    # Apps :
+        * Persons :
+            - The blocks for detailed addresses have been fixed: they did not display fields since python3 migration.
+        * Billing :
+            - An encoding issue in PDF export, causing error 500 on some environments, has been fixed.
+        * Crudity + emails :
+            - The synchronisation of e-mails was broken (encoding errors notably).
+
+
 == Version 2.0.14 ==
 
   UPGRADE NOTE :
