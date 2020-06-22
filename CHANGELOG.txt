@@ -10,6 +10,8 @@
         * Reports :
             - The export for some types of CustomField was broken (multi-enum) or not localized (datetime, bool, decimal).
             - Aggregates are now localized in exported reports.
+        * Billing :
+            - The orders of InvoiceStatus were not correct in populate script.
 
 
 == Version 2.0.15 ==

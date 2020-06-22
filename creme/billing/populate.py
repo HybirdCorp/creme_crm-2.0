@@ -2,7 +2,7 @@
 
 ################################################################################
 #    Creme is a free/open-source Customer Relationship Management software
-#    Copyright (C) 2009-2018  Hybird
+#    Copyright (C) 2009-2020  Hybird
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -116,7 +116,7 @@ class Populator(BasePopulator):
             create_if_needed(SalesOrderStatus, {'pk': 4}, name=pgettext('billing-salesorder', 'Created'),  order=2)
 
         # ---------------------------
-        def create_invoice_status(pk, name, order, **kwargs):
+        def create_invoice_status(pk, name, **kwargs):
             create_if_needed(InvoiceStatus, {'pk': pk}, name=name, **kwargs)
 
         create_invoice_status(1, pgettext('billing-invoice', 'Draft'),      order=1, is_custom=False)  # Default status
