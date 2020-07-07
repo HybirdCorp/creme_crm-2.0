@@ -2,8 +2,15 @@
 
   Users side :
   ------------
+    # Fix dialog title of entity filter details using "<" (backport 2.1)
     # Fix an issue when removing a file with inner edition (backport 2.1)
 
+  Developers side :
+  -----------------
+    Non breaking changes :
+    ----------------------
+        # In javascript :
+          - title property of creme.dialog.Dialog is now unescaped (see bug #64)
 
 == Version 2.0.16 ==
 
