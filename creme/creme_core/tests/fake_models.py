@@ -22,7 +22,7 @@ else:
                'FakeImageCategory', 'FakeImage', 'FakeCivility', 'FakePosition', 'FakeSector', 'FakeAddress',
                'FakeContact', 'FakeLegalForm', 'FakeOrganisation', 'FakeActivityType', 'FakeActivity',
                'FakeMailingList', 'FakeEmailCampaign', 'FakeInvoice', 'FakeInvoiceLine', 'FakeProduct',
-               'FakeReport',
+               'FakeReport', 'FakeFileBag',
               )
 
 
@@ -106,6 +106,22 @@ else:
             app_label = 'creme_core'
             verbose_name = 'Test File component'
             verbose_name_plural = 'Test File components'
+
+
+    class FakeFileBag(CremeEntity):
+        name = models.CharField(_('Name'), max_length=100)
+        # NB: it's not really useful to use FakeFileComponent instead of FileField
+        #     directly of course, but we need to test sub-FileField
+        file1 = models.ForeignKey(FakeFileComponent, verbose_name='First file',
+                                  null=True, blank=True, on_delete=models.PROTECT,
+                                 ).set_tags(enumerable=False)
+
+        class Meta:
+            app_label = 'creme_core'
+            manager_inheritance_from_future = True
+            verbose_name = 'Test File bag'
+            verbose_name_plural = 'Test File bags'
+            ordering = ('name',)
 
 
     class FakeImageCategory(CremeModel):
