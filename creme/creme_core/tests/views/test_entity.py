@@ -4,6 +4,7 @@ try:
     from datetime import date
     from decimal import Decimal
     from functools import partial
+    from os import path as os_path
     # from json import loads as load_json
 
     from django.conf import settings
@@ -15,10 +16,10 @@ try:
     from django.utils.translation import ugettext as _, ungettext
 
     from .base import ViewsTestCase, BrickTestCaseMixin
-
     from creme.creme_core import constants
     from creme.creme_core.auth.entity_credentials import EntityCredentials
     from creme.creme_core.bricks import TrashBrick
+
     from creme.creme_core.forms.bulk import _CUSTOMFIELD_FORMAT, BulkDefaultEditForm
     # from creme.creme_core.gui.bulk_update import bulk_update_registry
     from creme.creme_core.gui import bulk_update
@@ -29,8 +30,11 @@ try:
             CustomFieldString, CustomFieldDateTime,
             CustomFieldEnum, CustomFieldMultiEnum, CustomFieldEnumValue,
             FakeContact, FakeOrganisation, FakePosition, FakeSector,
-            FakeAddress, FakeImage, FakeImageCategory)
+            FakeAddress, FakeImage, FakeImageCategory,
+            FakeFolder, FakeDocument, FakeFileComponent, FakeFileBag
+    )
     # from creme.creme_core.utils import safe_unicode
+    from creme.creme_core.utils.file_handling import FileCreator
     from creme.creme_core.views.entity import BulkUpdate, InnerEdition
 
     from creme.creme_config.models import FakeConfigEntity
@@ -1381,8 +1385,11 @@ class BulkUpdateTestCase(_BulkEditTestCase):
         contact_status._innerforms = self._contact_innerforms
         contact_status.excludes = self._contact_excludes
 
-    def _build_update_url(self, field_name):
-        return reverse('creme_core__bulk_update', args=(self.contact_ct.id, field_name))
+    def _build_update_url(self, field, ctype=None):
+        if ctype is None:
+            ctype = self.contact_ct
+
+        return reverse('creme_core__bulk_update', args=(ctype.id, field))
 
     def create_2_contacts_n_url(self, mario_kwargs=None, luigi_kwargs=None, field='first_name'):
         create_contact = partial(FakeContact.objects.create, user=self.user)
@@ -1996,6 +2003,43 @@ class BulkUpdateTestCase(_BulkEditTestCase):
         self.assertRaises(CustomFieldMultiEnum.DoesNotExist, get_cf_values, cf_multi_enum, self.refresh(mario))
         self.assertRaises(CustomFieldMultiEnum.DoesNotExist, get_cf_values, cf_multi_enum, self.refresh(luigi))
 
+    def test_regular_field_file_excluded(self):
+        "FileFields are excluded."
+        user = self.login()
+
+        folder = FakeFolder.objects.create(user=user, title='Earth maps')
+        doc = FakeDocument.objects.create(user=user, title='Japan map', linked_folder=folder)
+
+        ctype = doc.entity_type
+        response = self.assertGET200(self._build_update_url(field='filedata', ctype=ctype))
+
+        with self.assertNoException():
+            field_urls = {
+                f_url
+                    for f_url, label in response.context['form'].fields['_bulk_fieldname'].choices
+            }
+
+        self.assertIn(reverse('creme_core__bulk_update', args=(ctype.id, 'title')), field_urls)
+        self.assertNotIn(reverse('creme_core__bulk_update', args=(ctype.id, 'filedata')), field_urls)
+
+    def test_regular_subfield_file_excluded(self):
+        "FileFields are excluded (sub-field case)."
+        user = self.login()
+
+        bag = FakeFileBag.objects.create(user=user, name='Stuffes')
+
+        ctype = bag.entity_type
+        response = self.assertGET200(self._build_update_url(field='name', ctype=ctype))
+
+        with self.assertNoException():
+            field_urls = {
+                f_url
+                    for f_url, label in response.context['form'].fields['_bulk_fieldname'].choices
+            }
+
+        self.assertIn(reverse('creme_core__bulk_update', args=(ctype.id, 'name')), field_urls)
+        self.assertNotIn('file1', field_urls)
+
     def test_other_field_validation_error(self):
         user = self.login()
         create_empty_user = partial(get_user_model().objects.create_user,
@@ -2152,6 +2196,63 @@ class InnerEditTestCase(_BulkEditTestCase):
 
         image = self.refresh(image)
         self.assertEqual(set(image.categories.all()), set(categories))
+
+    def test_regular_field_file(self):
+        user = self.login()
+
+        folder = FakeFolder.objects.create(user=user, title='Earth maps')
+        doc = FakeDocument.objects.create(user=user, title='Japan map', linked_folder=folder)
+
+        url = self.build_inneredit_url(doc, 'filedata')
+        self.assertGET200(url)
+
+        content = 'Yes I am the content (DocumentTestCase.test_createview)'
+        file_obj = self.build_filedata(content, suffix='.{}'.format(settings.ALLOWED_EXTENSIONS[0]))
+        response = self.client.post(url,
+                                    data={'entities_lbl': [str(doc)],
+                                          'field_value': file_obj,
+                                         },
+                                   )
+        self.assertNoFormError(response)
+
+        filedata = self.refresh(doc).filedata
+        self.assertEqual('upload/creme_core-tests/' + file_obj.base_name, filedata.name)
+
+        filedata.open('r')
+        self.assertEqual([content], filedata.readlines())
+        filedata.close()
+
+    def test_regular_field_file_clear(self):
+        "Empty data."
+        user = self.login()
+
+        def _create_file(name):
+            rel_media_dir_path = os_path.join('upload', 'creme_core-tests', 'models')
+            final_path = FileCreator(
+                os_path.join(settings.MEDIA_ROOT, rel_media_dir_path),
+                name,
+            ).create()
+
+            with open(final_path, 'w') as f:
+                f.write('I am the content')
+
+            return os_path.join(rel_media_dir_path, os_path.basename(final_path))
+
+        file_path = _create_file('InnerEditTestCase_test_regular_field_file02.txt')
+
+        comp = FakeFileComponent.objects.create(filedata=file_path)
+        bag = FakeFileBag.objects.create(user=user, name='Stuffes', file1=comp)
+
+        url = self.build_inneredit_url(bag, 'file1__filedata')
+        self.assertGET200(url)
+
+        response = self.client.post(url, data={'entities_lbl': [str(bag)],
+                                               'field_value-clear': 'on',
+                                               'field_value': b'',
+                                              },
+                                    )
+        self.assertNoFormError(response)
+        self.assertEqual('', self.refresh(comp).filedata.name)
 
     def test_regular_field_invalid_model(self):
         "Neither an entity & neither related to an entity"
