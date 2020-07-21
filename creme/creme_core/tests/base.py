@@ -2,16 +2,18 @@
 
 from datetime import datetime, timedelta
 from json import dumps as json_dump
+from os.path import basename
+from tempfile import NamedTemporaryFile
 from unittest import skipIf
 from unittest.util import safe_repr
 import warnings
 
-from django.test import TestCase, TransactionTestCase
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
 from django.core.management import call_command
 from django.db.models.query_utils import Q
 from django.forms.formsets import BaseFormSet
+from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
 from django.utils.timezone import utc, get_current_timezone, make_aware
 
@@ -378,6 +380,18 @@ class _CremeTestCase:
 
     def build_merge_url(self, entity1, entity2):
         return reverse('creme_core__merge_entities') + '?id1={}&id2={}'.format(entity1.id, entity2.id)
+
+    def build_filedata(self, content_str, suffix='.txt'):
+        tmpfile = NamedTemporaryFile(suffix=suffix)
+        tmpfile.write(content_str.encode())
+        tmpfile.flush()
+
+        filedata = tmpfile.file
+        filedata.seek(0)
+
+        tmpfile.base_name = basename(tmpfile.name)
+
+        return tmpfile
 
     def create_datetime(self, *args, **kwargs):
         tz = utc if kwargs.pop('utc', False) else get_current_timezone()
