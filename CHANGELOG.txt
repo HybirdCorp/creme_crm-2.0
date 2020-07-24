@@ -2,7 +2,8 @@
 
   Users side :
   ------------
-    # Fix dialog title of entity filter details using "<" (backport 2.1)
+    # Fix XSS issue in popover title (backport 2.1)
+    # Fix dialog title with escaped characters (backport 2.1)
     # Fix an issue when removing a file with inner edition (backport 2.1)
 
   Developers side :
