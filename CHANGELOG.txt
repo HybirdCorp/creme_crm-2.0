@@ -2,16 +2,22 @@
 
   Users side :
   ------------
-    # Fix XSS issue in popover title (backport 2.1)
-    # Fix dialog title with escaped characters (backport 2.1)
-    # Fix an issue when removing a file with inner edition (backport 2.1)
+    # A XSS issue in popover title has been fixed.
+    # An issue with escaped characters in dialog title has been fixed.
+    # An issue when removing a file with inner edition has been fixed (backported from 2.1)
+    # Apps:
+        * Billing :
+            - The LateX templates have been fixed :
+                - The issuing date is now displayed.
+                - In Invoices, the settlement terms set in the entity is now used instead of hard-coded label.
 
   Developers side :
   -----------------
     Non breaking changes :
     ----------------------
-        # In javascript :
-          - title property of creme.dialog.Dialog is now unescaped (see bug #64)
+        # In JavaScript :
+          - The property "title" of 'creme.dialog.Dialog' is now unescaped (issue #64 in trunk).
+
 
 == Version 2.0.16 ==
 
