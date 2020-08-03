@@ -1,4 +1,4 @@
-== Version 2.0.17 Work in progress (not released -- this is a draft) ==
+== Version 2.0.17 ==
 
   UPGRADE NOTE :
     - You should upgrade the version of Pillow to 7.1 (eg: pip install -U creme/requirements.txt ).
