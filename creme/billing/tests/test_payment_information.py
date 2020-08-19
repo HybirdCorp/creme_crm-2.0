@@ -3,10 +3,12 @@
 try:
     from functools import partial
 
+    from django.contrib.contenttypes.models import ContentType
     from django.urls import reverse
     from django.utils.translation import ugettext as _
 
-    from creme.creme_core.models import FieldsConfig
+    from creme.creme_core.auth.entity_credentials import EntityCredentials
+    from creme.creme_core.models import FieldsConfig, SetCredentials
 
     from creme.persons.tests.base import skipIfCustomOrganisation
 
@@ -18,17 +20,19 @@ except Exception as e:
 
 @skipIfCustomOrganisation
 class PaymentInformationTestCase(_BillingTestCase):
-    def setUp(self):
-        self.login()
-
     def _build_add_url(self, orga):
         return reverse('billing__create_payment_info', args=(orga.id,))
+
+    def _build_add_related_url(self, invoice):
+        return reverse('billing__create_related_payment_info', args=(invoice.id,))
 
     def _build_setdefault_url(self, pi, invoice):
         return reverse('billing__set_default_payment_info', args=(pi.id, invoice.id))
 
     def test_createview01(self):
-        organisation = Organisation.objects.create(user=self.user, name='Nintendo')
+        user = self.login()
+
+        organisation = Organisation.objects.create(user=user, name='Nintendo')
         url = self._build_add_url(organisation)
 
         context = self.assertGET200(url).context
@@ -39,7 +43,7 @@ class PaymentInformationTestCase(_BillingTestCase):
                         )
         self.assertEqual(_('Save the payment information'), context.get('submit_label'))
 
-        self.assertNoFormError(self.client.post(url, data={'user': self.user.pk,
+        self.assertNoFormError(self.client.post(url, data={'user': user.pk,
                                                            'name': 'RIB of {}'.format(organisation),
                                                           }
                                                )
@@ -53,13 +57,15 @@ class PaymentInformationTestCase(_BillingTestCase):
         self.assertEqual(organisation, pi.organisation)
 
     def test_createview02(self):
-        organisation = Organisation.objects.create(user=self.user, name='Nintendo')
+        user = self.login()
+
+        organisation = Organisation.objects.create(user=user, name='Nintendo')
         first_pi = PaymentInformation.objects.create(organisation=organisation, name='RIB 1', is_default=True)
 
         url = self._build_add_url(organisation)
         self.assertGET200(url)
 
-        response = self.client.post(url, data={'user':       self.user.pk,
+        response = self.client.post(url, data={'user':       user.pk,
                                                'name':       'RIB of {}'.format(organisation),
                                                'is_default': True,
                                               }
@@ -76,10 +82,89 @@ class PaymentInformationTestCase(_BillingTestCase):
 
     def test_createview03(self):
         "Related is not an organisation"
-        self.assertGET404(self._build_add_url(self.user.linked_contact))
+        user = self.login()
+        self.assertGET404(self._build_add_url(user.linked_contact))
+
+    def test_related_createview01(self):
+        user = self.login(
+            is_superuser=False,
+            allowed_apps=['persons', 'billing'],
+            creatable_models=[Organisation, Invoice],
+        )
+
+        get_ct = ContentType.objects.get_for_model
+        create_sc = partial(
+            SetCredentials.objects.create,
+            role=self.role, set_type=SetCredentials.ESET_ALL,
+        )
+        create_sc(
+            value=EntityCredentials.VIEW | EntityCredentials.CHANGE,
+            ctype=get_ct(Invoice),
+        )
+        create_sc(
+            value=EntityCredentials.VIEW | EntityCredentials.CHANGE | EntityCredentials.LINK,
+            ctype=get_ct(Organisation),
+        )
+
+        invoice, source, target = self.create_invoice_n_orgas('Playstations')
+        url = self._build_add_related_url(invoice)
+
+        context = self.assertGET200(url).context
+        self.assertEqual(
+            _(
+                'New payment information in the organisation «{entity}»'
+            ).format(entity=source),
+            context.get('title')
+        )
+        self.assertEqual(_('Save the payment information'), context.get('submit_label'))
+
+        self.assertNoFormError(self.client.post(
+            url,
+            data={
+                'user': user.pk,
+                'name': f'RIB of {source}',
+            },
+        ))
+
+        all_pi = PaymentInformation.objects.filter(organisation=source.id)
+        self.assertEqual(1, len(all_pi))
+
+        pi = all_pi[0]
+        self.assertIs(True, pi.is_default)
+        self.assertEqual(pi, self.refresh(invoice).payment_info)
+
+        # Not a billing doc
+        self.assertGET404(self._build_add_related_url(source))
+
+    def test_related_createview02(self):
+        "Credentials for source."
+        self.login(
+            is_superuser=False,
+            allowed_apps=['persons', 'billing'],
+            creatable_models=[Organisation, Invoice],
+        )
+
+        get_ct = ContentType.objects.get_for_model
+        create_sc = partial(
+            SetCredentials.objects.create,
+            role=self.role, set_type=SetCredentials.ESET_ALL,
+        )
+        create_sc(
+            value=EntityCredentials.VIEW | EntityCredentials.CHANGE,
+            ctype=get_ct(Invoice),
+        )
+        create_sc(
+            value=EntityCredentials.VIEW | EntityCredentials.LINK,  # No CHANGE
+            ctype=get_ct(Organisation),
+        )
+
+        invoice, source, target = self.create_invoice_n_orgas('Playstations')
+        self.assertGET403(self._build_add_related_url(invoice))
 
     def test_editview01(self):
-        organisation = Organisation.objects.create(user=self.user, name='Nintendo')
+        user = self.login()
+
+        organisation = Organisation.objects.create(user=user, name='Nintendo')
         pi = PaymentInformation.objects.create(organisation=organisation, name="RIB 1")
 
         # TODO: get_edit_absolute_url() ?
@@ -95,7 +180,7 @@ class PaymentInformationTestCase(_BillingTestCase):
         rib_key = '00'
         name    = 'RIB of {}'.format(organisation)
         bic     = 'pen ?'
-        response = self.client.post(url, data={'user':    self.user.pk,
+        response = self.client.post(url, data={'user':    user.pk,
                                                'name':    name,
                                                'rib_key': rib_key,
                                                'bic':     bic,
@@ -110,7 +195,9 @@ class PaymentInformationTestCase(_BillingTestCase):
         self.assertEqual(bic,     pi.bic)
 
     def test_editview02(self):
-        create_orga = partial(Organisation.objects.create, user=self.user)
+        user = self.login()
+
+        create_orga = partial(Organisation.objects.create, user=user)
         orga1 = create_orga(name='Nintendo')
         orga2 = create_orga(name='Sega')
 
@@ -127,7 +214,7 @@ class PaymentInformationTestCase(_BillingTestCase):
         rib_key = '00'
         name    = 'RIB of {}'.format(orga1)
         bic     = 'pen ?'
-        self.assertNoFormError(self.client.post(url, data={'user':       self.user.pk,
+        self.assertNoFormError(self.client.post(url, data={'user':       user.pk,
                                                            'name':       name,
                                                            'rib_key':    rib_key,
                                                            'bic':        bic,
@@ -151,6 +238,8 @@ class PaymentInformationTestCase(_BillingTestCase):
 
     @skipIfCustomInvoice
     def test_set_default_in_invoice01(self):
+        self.login()
+
         invoice, sony_source, nintendo_target = self.create_invoice_n_orgas('Playstations')
         pi_sony = PaymentInformation.objects.create(organisation=sony_source, name='RIB sony')
         url = self._build_setdefault_url(pi_sony, invoice)
@@ -160,7 +249,9 @@ class PaymentInformationTestCase(_BillingTestCase):
 
     @skipIfCustomInvoice
     def test_set_default_in_invoice02(self):
-        sega = Organisation.objects.create(user=self.user, name='Sega')
+        user = self.login()
+
+        sega = Organisation.objects.create(user=user, name='Sega')
         invoice, sony_source, nintendo_target = self.create_invoice_n_orgas('Playstations')
 
         create_pi = PaymentInformation.objects.create
@@ -181,6 +272,8 @@ class PaymentInformationTestCase(_BillingTestCase):
     @skipIfCustomInvoice
     def test_set_default_in_invoice03(self):
         "Trashed organisation"
+        self.login()
+
         invoice, sony_source = self.create_invoice_n_orgas('Playstations')[:2]
         pi_sony = PaymentInformation.objects.create(organisation=sony_source, name='RIB sony')
 
@@ -191,7 +284,9 @@ class PaymentInformationTestCase(_BillingTestCase):
 
     @skipIfCustomInvoice
     def test_set_default_in_invoice04(self):
-        "'payment_info' is hidden"
+        "'payment_info' is hidden."
+        user = self.login()
+
         invoice, sony_source = self.create_invoice_n_orgas('Playstations')[:2]
         pi_sony = PaymentInformation.objects.create(organisation=sony_source, name='RIB sony')
 
@@ -202,7 +297,9 @@ class PaymentInformationTestCase(_BillingTestCase):
         self.assertPOST409(self._build_setdefault_url(pi_sony, invoice))
 
     def test_inneredit(self):
-        organisation = Organisation.objects.create(user=self.user, name='Nintendo')
+        user = self.login()
+
+        organisation = Organisation.objects.create(user=user, name='Nintendo')
         pi = PaymentInformation.objects.create(organisation=organisation, name='RIB 1')
 
         build_url = self.build_inneredit_url
