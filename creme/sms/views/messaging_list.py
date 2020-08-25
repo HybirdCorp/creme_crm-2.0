@@ -2,7 +2,7 @@
 
 ################################################################################
 #    Creme is a free/open-source Customer Relationship Management software
-#    Copyright (C) 2009-2018  Hybird
+#    Copyright (C) 2009-2020  Hybird
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -22,12 +22,15 @@ import warnings
 
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _  # ugettext
 
+from creme import persons
 from creme.creme_core.auth import build_creation_perm as cperm
 from creme.creme_core.auth.decorators import login_required, permission_required
 from creme.creme_core.utils import get_from_POST_or_404
 from creme.creme_core.views import generic
+from creme.creme_core.views.decorators import require_model_fields
 
 from .. import get_messaginglist_model
 from ..constants import DEFAULT_HFILTER_MLIST
@@ -156,7 +159,12 @@ class MessagingListEdition(generic.EntityEdition):
     pk_url_kwarg = 'mlist_id'
 
 
-class ContactsAdding(generic.AddingInstanceToEntityPopup):
+@method_decorator(
+    require_model_fields(persons.get_contact_model(), 'mobile'),
+    name='dispatch',
+)
+# class ContactsAdding(generic.AddingInstanceToEntityPopup):
+class ContactsAdding(generic.RelatedToEntityFormPopup):
     # model = Contact
     form_class = ml_forms.AddContactsForm
     template_name = 'creme_core/generics/blockform/link-popup.html'

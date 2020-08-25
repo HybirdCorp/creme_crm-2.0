@@ -37,10 +37,11 @@ class SMSConfig(CremeAppConfig):
         super().all_apps_ready()
 
     def register_entity_models(self, creme_registry):
-        creme_registry.register_entity_models(self.SMSCampaign,
-                                              self.MessagingList,
-                                              self.MessageTemplate,
-                                             )
+        creme_registry.register_entity_models(
+            self.SMSCampaign,
+            self.MessagingList,
+            self.MessageTemplate,
+        )
 
     def register_bricks(self, brick_registry):
         from . import bricks
@@ -54,6 +55,15 @@ class SMSConfig(CremeAppConfig):
 
     def register_bulk_update(self, bulk_update_registry):
         bulk_update_registry.register(self.SMSCampaign, exclude=('lists',))
+
+    def register_fields_config(self, fields_config_registry):
+        from creme import persons
+
+        fields_config_registry.register_needed_fields(
+            'sms',
+            persons.get_contact_model(),
+            'mobile',
+        )
 
     def register_icons(self, icon_registry):
         reg_icon = icon_registry.register

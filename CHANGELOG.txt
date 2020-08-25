@@ -6,6 +6,8 @@
         * Billing :
             - The LateX templates have been fixed : the settlement terms is now used correctly.
             - In the block "Payments information", the button to select an account is always displayed when no account is selected.
+        * SMS :
+            - Many fixes & improvements have been done.
 
 
 == Version 2.0.17 ==
