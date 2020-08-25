@@ -37,10 +37,14 @@ class _RelatedEntitesBrick(QuerysetBrick):
     def _get_queryset(self, entity):
         raise NotImplementedError
 
-    def detailview_display(self, context):
-        entity = context['object']
+    def _update_context(self, context):
+        pass
 
-        return self._render(self.get_template_context(context, self._get_queryset(entity)))
+    def detailview_display(self, context):
+        btc = self.get_template_context(context, self._get_queryset(context['object']))
+        self._update_context(btc)
+
+        return self._render(btc)
 
 
 class MessagingListsBlock(_RelatedEntitesBrick):
@@ -80,6 +84,12 @@ class ContactsBrick(_RelatedEntitesBrick):
 
     def _get_queryset(self, entity):  # NB: entity=mlist
         return entity.contacts.all()
+
+    def _update_context(self, context):
+        # TODO: in a templatetag ??
+        context['field_hidden'] = context['fields_configs'].get_4_model(
+            get_contact_model(),
+        ).is_fieldname_hidden('mobile')
 
 
 class MessagesBrick(QuerysetBrick):

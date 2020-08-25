@@ -2,7 +2,7 @@
 
 ################################################################################
 #    Creme is a free/open-source Customer Relationship Management software
-#    Copyright (C) 2009-2018  Hybird
+#    Copyright (C) 2009-2020  Hybird
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,9 @@
 ################################################################################
 
 from django.forms import CharField, ValidationError, Textarea
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 
 from creme.creme_core.forms import CremeEntityForm
 
@@ -28,13 +30,11 @@ from ..encoding import gsm_encoded_content, SMS_MAX_LENGTH
 
 
 _FORBIDDEN = u"^ { } \\ [ ~ ] | €"  # TODO: given by the backend ??
-_HELP = _(u"""Message with a maximum of 160 characters.
- Beware, the header matters (+ 3 characters) and the following characters count double: {}""").format(_FORBIDDEN)
 MessageTemplate = get_messagetemplate_model()
 
 
 class TemplateCreateForm(CremeEntityForm):
-    body = CharField(label=_(u'Message'), widget=Textarea(), help_text=_HELP)
+    body = CharField(label=pgettext_lazy('sms', 'Message'), widget=Textarea)
 
     error_messages = {
         'too_long': _('Message is too long (%(length)s > %(max_length)s)'),
@@ -42,6 +42,14 @@ class TemplateCreateForm(CremeEntityForm):
 
     class Meta(CremeEntityForm.Meta):
         model = MessageTemplate
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['body'].help_text = gettext(
+            'Message with a maximum of 160 characters.\n'
+            'Beware, the header matters (+ 3 characters) '
+            'and the following characters count double: {}'
+        ).format(_FORBIDDEN)
 
     def clean(self):
         cleaned_data = super().clean()

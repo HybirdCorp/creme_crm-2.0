@@ -2,7 +2,7 @@
 
 ################################################################################
 #    Creme is a free/open-source Customer Relationship Management software
-#    Copyright (C) 2009-2018  Hybird
+#    Copyright (C) 2009-2020  Hybird
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -19,6 +19,7 @@
 ################################################################################
 
 from django.forms import FileField, Textarea
+from django.utils.encoding import smart_text
 from django.utils.translation import ugettext_lazy as _
 
 from creme.creme_core.utils import chunktools
@@ -57,39 +58,66 @@ class MessagingListAddRecipientsForm(CremeForm):
                 create(messaging_list=messaging_list, phone=number)
 
 
-_HELP = _(u"A text file where each line contains digits (which can be separated by space characters).\n"
-          u"Only digits are used and empty lines are ignored.\n"
-          u"Examples: '00 56 87 56 45' => '0056875645'; 'abc56def' => '56'"
-         )
-
-
 class MessagingListAddCSVForm(CremeForm):
-    recipients = FileField(label=_(u'Recipients'), help_text=_HELP)
+    recipients = FileField(
+        label=_('Recipients'),
+        help_text=_(
+            "A text file where each line contains digits "
+            "(which can be separated by space characters).\n"
+            "Only digits are used and empty lines are ignored.\n"
+            "Examples: '00 56 87 56 45' => '0056875645'; 'abc56def' => '56'"
+        ),
+    )
 
     def __init__(self, entity, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.messaging_list = entity
 
+    # def save(self):
+    #     targets = chunktools.iter_splitchunks(self.cleaned_data['recipients'].chunks(),
+    #                                           '\n', PhoneField.filternumbers,
+    #                                          )
+    #
+    #     for numbers in chunktools.iter_as_chunk(targets, 256):
+    #         self._save_numbers(numbers)
+    #
+    # def _save_numbers(self, numbers):
+    #     if not numbers:
+    #         return
+    #
+    #     messaging_list = self.messaging_list
+    #     create = Recipient.objects.create
+    #     duplicates = frozenset(Recipient.objects.filter(phone__in=numbers,
+    #                                                     messaging_list=messaging_list,
+    #                                                    )
+    #                                             .values_list('phone', flat=True)
+    #                           )
+    #
+    #     for number in numbers:
+    #         if number not in duplicates and number:
+    #             create(messaging_list=messaging_list, phone=number)
     def save(self):
-        targets = chunktools.iter_splitchunks(self.cleaned_data['recipients'].chunks(),
-                                              '\n', PhoneField.filternumbers,
-                                             )
-
-        for numbers in chunktools.iter_as_chunk(targets, 256):
-            self._save_numbers(numbers)
-
-    def _save_numbers(self, numbers):
-        if not numbers:
-            return
-
-        messaging_list = self.messaging_list
+        mlist = self.messaging_list
         create = Recipient.objects.create
-        duplicates = frozenset(Recipient.objects.filter(phone__in=numbers,
-                                                        messaging_list=messaging_list,
-                                                       )
-                                                .values_list('phone', flat=True)
-                              )
+        filter_recipient = Recipient.objects.filter
 
-        for number in numbers:
-            if number not in duplicates and number:
-                create(messaging_list=messaging_list, phone=number)
+        uploaded_file = self.cleaned_data['recipients']
+
+        # TODO: genexpr
+        def phones():
+            for line in uploaded_file:
+                phone = PhoneField.filternumbers(smart_text(line.strip()))
+                if phone:
+                    yield phone
+
+        for phones in chunktools.iter_as_chunk(phones(), 256):
+            phones = frozenset(phones)
+            existing = frozenset(
+                filter_recipient(
+                    messaging_list=mlist, phone__in=phones,
+                ).values_list('phone', flat=True)
+            )
+
+            for phone in phones:
+                if phone not in existing:
+                    create(messaging_list=mlist, phone=phone)

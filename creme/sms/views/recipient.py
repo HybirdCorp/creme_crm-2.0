@@ -2,7 +2,7 @@
 
 ################################################################################
 #    Creme is a free/open-source Customer Relationship Management software
-#    Copyright (C) 2009-2018  Hybird
+#    Copyright (C) 2009-2020  Hybird
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -18,11 +18,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-from django.utils.translation import ugettext as _
+# from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 
 # from creme.creme_core.auth.decorators import login_required, permission_required
 # from creme.creme_core.views.generic import add_to_entity
-from creme.creme_core.views.generic.add import AddingInstanceToEntityPopup
+# from creme.creme_core.views.generic.add import AddingInstanceToEntityPopup
+from creme.creme_core.views.generic import RelatedToEntityFormPopup
 
 from .. import get_messaginglist_model
 from ..forms import recipient as forms
@@ -37,9 +39,9 @@ from ..models import Recipient
 #                          entity_class=get_messaginglist_model(),
 #                          submit_label=Recipient.multi_save_label,
 #                         )
-class RecipientsAdding(AddingInstanceToEntityPopup):
-    model = Recipient
-    form_class = forms.MessagingListAddRecipientsForm
+class _RecipientsAddingBase(RelatedToEntityFormPopup):
+    # model = Recipient
+    # form_class = forms.MessagingListAddRecipientsForm
     entity_id_url_kwarg = 'mlist_id'
     entity_classes = get_messaginglist_model()
     title = _('New recipients for «{entity}»')
@@ -54,6 +56,11 @@ class RecipientsAdding(AddingInstanceToEntityPopup):
 #                          entity_class=get_messaginglist_model(),
 #                          submit_label=Recipient.multi_save_label,
 #                         )
-class RecipientsAddingFromCSV(RecipientsAdding):
+# class RecipientsAdding(AddingInstanceToEntityPopup):
+class RecipientsAdding(_RecipientsAddingBase):
+    form_class = forms.MessagingListAddRecipientsForm
+
+
+# class RecipientsAddingFromCSV(RecipientsAdding):
+class RecipientsAddingFromCSV(_RecipientsAddingBase):
     form_class = forms.MessagingListAddCSVForm
-    entity_classes = get_messaginglist_model()
