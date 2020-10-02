@@ -8,6 +8,8 @@
             - In the forms for 'AbstractProject', the fields "start_date" & "end_date" are not required any more.
             - The button "Back to the project" has been fixed.
             - The display of the hourly cost in the Resources' brick has been fixed.
+        * SMS:
+            - The field 'MessagingList.contacts' cannot be inner-edited anymore.
 
 
 == Version 2.0.18 ==
