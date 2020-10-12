@@ -7,6 +7,7 @@
             - These fields of 'EmailTemplate' cannot be inner-edited anymore: 'body', 'body_html'.
         * SMS :
             - The messaging lists are nox excluded correctly from the edition form of 'SMSCampaigns'.
+            - These fields of 'MessageTemplate' are not inner-editable anymore: subject & body.
 
 
 == Version 2.0.19 ==
