@@ -1,5 +1,13 @@
 == Version 2.0.21 Work in progress (not released -- this is a draft) ==
 
+  User side :
+  -----------
+    # Apps:
+        * Activities :
+            - In CSV import:
+                - The LINK credentials are checked for "My participation".
+                - Teams are correctly managed as participating users.
+
 
 == Version 2.0.20 ==
 
