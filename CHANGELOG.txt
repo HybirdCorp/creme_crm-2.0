@@ -2,6 +2,8 @@
 
   User side :
   -----------
+    # The "similarity" password validator is now working correctly.
+      (ie: 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator')
     # Apps:
         * Activities :
             - In CSV import:
