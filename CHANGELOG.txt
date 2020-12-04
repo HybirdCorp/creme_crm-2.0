@@ -4,6 +4,7 @@
   -----------
     # The "similarity" password validator is now working correctly.
       (ie: 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator')
+    # An icon was missing in the "chantilly" theme.
     # Apps:
         * Activities :
             - In CSV import:
